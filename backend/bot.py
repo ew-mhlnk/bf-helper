@@ -1,6 +1,8 @@
 import asyncio
+import json
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
+from aiogram.types import Message, WebAppInfo, ReplyKeyboardMarkup, KeyboardButton
 from dotenv import load_dotenv
 import os
 
@@ -10,58 +12,27 @@ bot = Bot(token=os.getenv("BOT_TOKEN"))
 dp = Dispatcher()
 
 @dp.message(Command("start"))
-async def start(message):
-    await message.reply("Привет, водитель! Открой Mini App и выбери инструкцию.", reply_markup=None)
+async def start(message: Message):
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="Открыть Mini App", web_app=WebAppInfo(url=os.getenv("MINI_APP_URL")))]
+        ],
+        resize_keyboard=True
+    )
+    await message.reply("Привет, водитель! Нажми кнопку ниже:", reply_markup=keyboard)
 
-@dp.message(lambda message: message.text == "Как заправляться?")
-async def send_fuel_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как заправляться?")
-    await message.reply("Инструкция отправлена!")
+@dp.message(lambda message: message.web_app_data is not None)
+async def handle_mini_app_data(message: Message):
+    try:
+        data = json.loads(message.web_app_data.data)
+        command = data.get('command', 'Неизвестная команда')
+    except json.JSONDecodeError:
+        command = 'Ошибка парсинга данных'
+        await message.reply(f"Ошибка в данных из Mini App: {command}")
+        return
 
-@dp.message(lambda message: message.text == "Топливный калькулятор")
-async def send_calculator_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Топливный калькулятор")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Мой переход")
-async def send_transition_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Мой переход")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Как открыть рейс?")
-async def send_open_trip_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как открыть рейс?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Как закрыть рейс?")
-async def send_close_trip_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как закрыть рейс?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Как добавить CMR?")
-async def send_cmr_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как добавить CMR?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Как добавить карту простоя?")
-async def send_idle_card_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как добавить карту простоя?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Как добавить чек?")
-async def send_receipt_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Как добавить чек?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Перечень. Что я должен знать?")
-async def send_list_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Перечень. Что я должен знать?")
-    await message.reply("Инструкция отправлена!")
-
-@dp.message(lambda message: message.text == "Я приехал из рейса. Что дальше?")
-async def send_post_trip_instruction(message):
-    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption="Инструкция: Я приехал из рейса. Что дальше?")
-    await message.reply("Инструкция отправлена!")
+    await bot.send_photo(chat_id=message.chat.id, photo="photo/BF.png", caption=f"Инструкция: {command}")
+    await message.reply(f"Инструкция для '{command}' отправлена!")
 
 async def main():
     await dp.start_polling(bot)
