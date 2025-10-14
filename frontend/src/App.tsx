@@ -3,11 +3,12 @@ import './App.css';
 
 function App() {
   const handleButtonClick = (command: string) => {
-    // Отправка данных в бот через Telegram Web App API
+    // Проверка и отправка данных только если Telegram WebApp доступен
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.sendData(JSON.stringify({ command }));
+      console.log(`Sent command: ${command}`);
     } else {
-      console.error('Telegram WebApp is not available');
+      console.warn('Telegram WebApp is not available. Test in Telegram environment.');
     }
   };
 
