@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const FuelInstructionPage: React.FC = () => {
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-4">
+    <div className="bg-[#141414] min-h-screen text-white p-4">
       <h1 className="text-2xl font-bold mb-4">Инструкция: Как заправляться?</h1>
       <p className="mb-4">
         1. Остановите транспортное средство у заправки и выключите двигатель.
@@ -13,7 +13,7 @@ const FuelInstructionPage: React.FC = () => {
       </p>
       <Link
         to="/"
-        className="bg-blue-700 w-full text-white py-2 mb-2 rounded block text-center"
+        className="custom-button bg-[var(--Miscellaneous-Keyboards-Emoji-+-Mic,#222b59)] bg-opacity-60 text-white hover:bg-opacity-80 active:bg-opacity-100"
       >
         Вернуться на главную
       </Link>
