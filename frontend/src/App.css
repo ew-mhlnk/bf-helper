@@ -40,18 +40,3 @@
     transform: rotate(360deg);
   }
 }
-
-.custom-button {
-  width: 100%;
-  max-width: 24rem;
-  height: 2.5rem;
-  text-align: center;
-  border-radius: 0.5rem;
-  transition: background-opacity 200ms ease;
-}
-
-@media (max-width: 640px) {
-  .custom-button {
-    max-width: 100%;
-  }
-}

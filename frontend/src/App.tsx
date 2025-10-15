@@ -11,7 +11,7 @@ function App() {
         <nav>
           <Link
             to="/fuel-instruction"
-            className="custom-button bg-[var(--Miscellaneous-Keyboards-Emoji-+-Mic,#222b59)] bg-opacity-60 text-white hover:bg-opacity-80 active:bg-opacity-100"
+            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
           >
             Как заправляться?
           </Link>
