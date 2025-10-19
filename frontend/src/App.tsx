@@ -2,10 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import FuelChoicePage from './FuelChoicePage';
-import BelarusFuelPage from './BelarusFuelPage';
-import KazakhFuelPage from './KazakhFuelPage';
 import DirectionChoicePage from './DirectionChoicePage';
-import DirectionPage from './DirectionPage';
+import AsianTripPage from './data/AsianTripPage';
+import EuropeanTripPage from './data/EuropeanTripPage';
+import ManchzhuriyaPage from './data/ManchzhuriyaPage';
+import KrasnodarPage from './data/KrasnodarPage';
+import KazakhAsianTripPage from './data/KazakhAsianTripPage';
+import KazakhEuropeanTripPage from './data/KazakhEuropeanTripPage';
+import KazakhManchzhuriyaPage from './data/KazakhManchzhuriyaPage';
+import KazakhKrasnodarPage from './data/KazakhKrasnodarPage';
 
 function App() {
   return (
@@ -22,10 +27,16 @@ function App() {
         </nav>
         <Routes>
           <Route path="/fuel-choice" element={<FuelChoicePage />} />
-          <Route path="/belarus-fuel" element={<BelarusFuelPage />} />
-          <Route path="/kazakh-fuel" element={<KazakhFuelPage />} />
-          <Route path="/:truckType-directions" element={<DirectionChoicePage />} />
-          <Route path="/:truckType/:direction" element={<DirectionPage />} />
+          <Route path="/belarus" element={<DirectionChoicePage />} />
+          <Route path="/kazakh" element={<DirectionChoicePage />} />
+          <Route path="/belarus/asian-trip" element={<AsianTripPage />} />
+          <Route path="/belarus/european-trip" element={<EuropeanTripPage />} />
+          <Route path="/belarus/manchzhuriya" element={<ManchzhuriyaPage />} />
+          <Route path="/belarus/krasnodar" element={<KrasnodarPage />} />
+          <Route path="/kazakh/asian-trip" element={<KazakhAsianTripPage />} />
+          <Route path="/kazakh/european-trip" element={<KazakhEuropeanTripPage />} />
+          <Route path="/kazakh/manchzhuriya" element={<KazakhManchzhuriyaPage />} />
+          <Route path="/kazakh/krasnodar" element={<KazakhKrasnodarPage />} />
         </Routes>
       </div>
     </Router>
