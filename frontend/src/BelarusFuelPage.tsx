@@ -33,10 +33,10 @@ const BelarusFuelPage: React.FC = () => {
         ))}
       </ul>
       <Link
-        to="/fuel-choice"
+        to="/belarus-directions"
         className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
       >
-        Вернуться к выбору тягача
+        Выбрать направление
       </Link>
     </div>
   );

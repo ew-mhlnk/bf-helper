@@ -4,6 +4,8 @@ import './App.css';
 import FuelChoicePage from './FuelChoicePage';
 import BelarusFuelPage from './BelarusFuelPage';
 import KazakhFuelPage from './KazakhFuelPage';
+import DirectionChoicePage from './DirectionChoicePage';
+import DirectionPage from './DirectionPage';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/fuel-choice" element={<FuelChoicePage />} />
           <Route path="/belarus-fuel" element={<BelarusFuelPage />} />
           <Route path="/kazakh-fuel" element={<KazakhFuelPage />} />
+          <Route path="/:truckType-directions" element={<DirectionChoicePage />} />
+          <Route path="/:truckType/:direction" element={<DirectionPage />} />
         </Routes>
       </div>
     </Router>
