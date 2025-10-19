@@ -1,0 +1,22 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const KazakhManchzhuriyaPage: React.FC = () => {
+  return (
+    <div className="bg-[#141414] min-h-screen text-white p-4">
+      <h1 className="text-2xl font-bold mb-4">Схема заправок для Маньчжурии (Казахский тягач)</h1>
+      <p>Qazaq Oil AZS #2</p>
+      <p>Карта оплаты: Qazaq Oil Card</p>
+      <p>Объём: 180 liters</p>
+      <p>Координаты: 43.266, 76.912</p>
+      <Link
+        to="/kazakh"
+        className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mt-4 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
+      >
+        Вернуться к выбору направления
+      </Link>
+    </div>
+  );
+};
+
+export default KazakhManchzhuriyaPage;
