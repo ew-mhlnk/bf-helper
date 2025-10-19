@@ -27,8 +27,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/fuel-choice" element={<FuelChoicePage />} />
-          <Route path="/belarus" element={<DirectionChoicePage />} />
-          <Route path="/kazakh" element={<DirectionChoicePage />} />
+          <Route path="/:truckType" element={<DirectionChoicePage />} />
           <Route path="/belarus/asian-trip" element={<AsianTripPage />} />
           <Route path="/belarus/european-trip" element={<EuropeanTripPage />} />
           <Route path="/belarus/manchzhuriya" element={<ManchzhuriyaPage />} />

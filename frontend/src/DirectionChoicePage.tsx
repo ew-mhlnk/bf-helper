@@ -4,9 +4,13 @@ import { Link, useParams } from 'react-router-dom';
 const DirectionChoicePage: React.FC = () => {
   const { truckType } = useParams<{ truckType: string }>();
 
+  console.log('truckType:', truckType); // Отладочный вывод в консоль
+
   return (
     <div className="bg-[#141414] min-h-screen text-white p-4">
-      <h1 className="text-2xl font-bold mb-4">Выберите направление для {truckType === 'belarus' ? 'белорусского' : 'казахского'} тягача</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Выберите направление для {truckType === 'belarus' ? 'белорусского' : truckType === 'kazakh' ? 'казахского' : 'неизвестного'} тягача
+      </h1>
       {truckType ? (
         <>
           <Link
@@ -35,7 +39,7 @@ const DirectionChoicePage: React.FC = () => {
           </Link>
         </>
       ) : (
-        <p>Ошибка: truckType не определён. Проверь маршруты.</p>
+        <p>Ошибка: truckType не определён. Проверь маршруты в URL: {window.location.pathname}</p>
       )}
     </div>
   );
