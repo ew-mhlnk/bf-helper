@@ -11,6 +11,8 @@ import KazakhAsianTripPage from './data/KazakhAsianTripPage';
 import KazakhEuropeanTripPage from './data/KazakhEuropeanTripPage';
 import KazakhManchzhuriyaPage from './data/KazakhManchzhuriyaPage';
 import KazakhKrasnodarPage from './data/KazakhKrasnodarPage';
+import ManualChoicePage from './manual/ManualChoicePage'; // Новый импорт
+import StartWorkPage from './manual/StartWorkPage'; // Новый импорт
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
           >
             Как заправляться?
           </Link>
+          <Link
+            to="/manual"
+            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
+          >
+            Инструкции к TruckOffice
+          </Link>
         </nav>
         <Routes>
           <Route path="/fuel-choice" element={<FuelChoicePage />} />
@@ -36,6 +44,8 @@ function App() {
           <Route path="/kazakh/european-trip" element={<KazakhEuropeanTripPage />} />
           <Route path="/kazakh/manchzhuriya" element={<KazakhManchzhuriyaPage />} />
           <Route path="/kazakh/krasnodar" element={<KazakhKrasnodarPage />} />
+          <Route path="/manual" element={<ManualChoicePage />} /> {/* Новый маршрут */}
+          <Route path="/manual/start-work" element={<StartWorkPage />} /> {/* Новый маршрут */}
         </Routes>
       </div>
     </Router>
