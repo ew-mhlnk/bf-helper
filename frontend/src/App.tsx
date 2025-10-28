@@ -11,8 +11,9 @@ import KazakhAsianTripPage from './data/KazakhAsianTripPage';
 import KazakhEuropeanTripPage from './data/KazakhEuropeanTripPage';
 import KazakhManchzhuriyaPage from './data/KazakhManchzhuriyaPage';
 import KazakhKrasnodarPage from './data/KazakhKrasnodarPage';
-import ManualChoicePage from './manual/ManualChoicePage'; // Новый импорт
-import StartWorkPage from './manual/StartWorkPage'; // Новый импорт
+import ManualChoicePage from './manual/ManualChoicePage';
+import StartWorkPage from './manual/StartWorkPage';
+import LoginPasswordPage from './manual/LoginPasswordPage'; // Новый импорт
 
 function App() {
   return (
@@ -44,8 +45,9 @@ function App() {
           <Route path="/kazakh/european-trip" element={<KazakhEuropeanTripPage />} />
           <Route path="/kazakh/manchzhuriya" element={<KazakhManchzhuriyaPage />} />
           <Route path="/kazakh/krasnodar" element={<KazakhKrasnodarPage />} />
-          <Route path="/manual" element={<ManualChoicePage />} /> {/* Новый маршрут */}
-          <Route path="/manual/start-work" element={<StartWorkPage />} /> {/* Новый маршрут */}
+          <Route path="/manual" element={<ManualChoicePage />} />
+          <Route path="/manual/start-work" element={<StartWorkPage />} />
+          <Route path="/manual/login-password" element={<LoginPasswordPage />} /> {/* Новый маршрут */}
         </Routes>
       </div>
     </Router>
