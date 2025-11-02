@@ -14,6 +14,7 @@ import KazakhKrasnodarPage from './data/KazakhKrasnodarPage';
 import ManualChoicePage from './manual/ManualChoicePage';
 import StartWorkPage from './manual/StartWorkPage';
 import LoginPasswordPage from './manual/LoginPasswordPage'; // Новый импорт
+import OpenTripPage from './manual/OpenTripPage';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/manual" element={<ManualChoicePage />} />
           <Route path="/manual/start-work" element={<StartWorkPage />} />
           <Route path="/manual/login-password" element={<LoginPasswordPage />} /> {/* Новый маршрут */}
+          <Route path="/manual/open-trip" element={<OpenTripPage />} />
         </Routes>
       </div>
     </Router>
