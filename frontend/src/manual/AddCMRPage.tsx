@@ -180,4 +180,4 @@ const AddCMRPage: React.FC = () => {
   );
 };
 
-export default AddCMRPage;
+export default AddCMRPage;   // ЭТА СТРОКА ОБЯЗАТЕЛЬНО ДОЛЖНА БЫТЬ!
