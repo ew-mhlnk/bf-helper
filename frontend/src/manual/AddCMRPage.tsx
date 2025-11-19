@@ -16,12 +16,11 @@ const AddCMRPage: React.FC = () => {
   return (
     <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
 
-      {/* Заголовок */}
       <h1 className="text-2xl font-bold text-center mb-6 mt-3">
         Как добавить CMR
       </h1>
 
-      {/* Главное правило — красная карточка */}
+      {/* Главное правило */}
       <div className="bg-red-900/40 border-2 border-red-600 rounded-2xl p-5 mb-7 text-center">
         <p className="text-lg font-bold text-red-300 leading-relaxed">
           Любой документ загружается только через нужный рейс
@@ -31,17 +30,17 @@ const AddCMRPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Фото 10.png — общий вид */}
+      {/* 10.png */}
       <div className="flex justify-center mb-7">
         <img
           src={images[0]}
-          alt="Общий вид приложения"
+          alt="Главный экран"
           className="w-80 max-w-full rounded-xl shadow-xl border border-gray-600 cursor-pointer"
           onClick={() => setEnlargedImage(images[0])}
         />
       </div>
 
-      {/* Пошаговая инструкция */}
+      {/* Пошагово */}
       <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
         <h2 className="text-lg font-bold text-blue-300 mb-4 text-center">
           Как попасть в нужный заказ
@@ -85,19 +84,19 @@ const AddCMRPage: React.FC = () => {
           Выберите способ загрузки
         </h2>
 
-        <div className="grid grid-cols-1 gap-4 mb-5">
+        <div className="space-y-4 mb-5">
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-2xl mb-1">Scanner</p>
+            <p className="text-3xl mb-1">Scanner</p>
             <p className="font-semibold">Сканер</p>
             <p className="text-sm opacity-90">приложение само обрежет и выпрямит</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-2xl mb-1">Camera</p>
+            <p className="text-3xl mb-1">Camera</p>
             <p className="font-semibold">Камера</p>
             <p className="text-sm opacity-90">просто сделать фото</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-2xl mb-1">Gallery</p>
+            <p className="text-3xl mb-1">Gallery</p>
             <p className="font-semibold">Галерея</p>
             <p className="text-sm opacity-90">готовый снимок из телефона</p>
           </div>
@@ -119,20 +118,20 @@ const AddCMRPage: React.FC = () => {
 
         <ul className="space-y-3 text-base">
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            <span>Положите лист на ровную поверхность</span>
+            <span className="text-xl">Checkmark</span>
+            Положите лист на ровную поверхность
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            <span>Протрите камеру телефона</span>
+            <span className="text-xl">Checkmark</span>
+            Протрите камеру телефона
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            <span>Снимайте так, чтобы весь документ был в кадре и текст читался</span>
+            <span className="text-xl">Checkmark</span>
+            Снимайте так, чтобы весь документ был в кадре и текст читался
           </li>
         </ul>
 
-        <div className="flex justify-center gap-10 my-6 text-5xl">
+        <div className="flex justify-center gap-10 my-6 text-4xl">
           <span className="text-green-400">Checkmark</span>
           <span className="text-red-400">Cross</span>
         </div>
@@ -187,7 +186,7 @@ const AddCMRPage: React.FC = () => {
         ← Вернуться к инструкциям
       </Link>
 
-      {/* Увеличенное изображение */}
+      {/* Модальное окно */}
       {enlargedImage && (
         <div
           className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
