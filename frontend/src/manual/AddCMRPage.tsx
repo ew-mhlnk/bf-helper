@@ -15,148 +15,179 @@ const AddCMRPage: React.FC = () => {
 
   return (
     <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
-      <h1 className="text-3xl font-bold text-center mb-6 mt-4">Как добавить CMR</h1>
 
-      <div className="bg-red-900/50 border-2 border-red-600 rounded-2xl p-6 mb-8 text-center">
-        <p className="text-xl font-bold text-red-300">
+      {/* Заголовок */}
+      <h1 className="text-2xl font-bold text-center mb-6 mt-3">
+        Как добавить CMR
+      </h1>
+
+      {/* Главное правило — красная карточка */}
+      <div className="bg-red-900/40 border-2 border-red-600 rounded-2xl p-5 mb-7 text-center">
+        <p className="text-lg font-bold text-red-300 leading-relaxed">
           Любой документ загружается только через нужный рейс
         </p>
-        <p className="text-lg mt-3">
+        <p className="text-base mt-2">
           Отправка <span className="font-bold">ЛЮБЫХ</span> документов начинается с выбора РЕЙСА
         </p>
       </div>
 
-      <div className="space-y-8">
+      {/* Фото 10.png — общий вид */}
+      <div className="flex justify-center mb-7">
+        <img
+          src={images[0]}
+          alt="Общий вид приложения"
+          className="w-80 max-w-full rounded-xl shadow-xl border border-gray-600 cursor-pointer"
+          onClick={() => setEnlargedImage(images[0])}
+        />
+      </div>
 
-        <div className="bg-gradient-to-br from-blue-900/40 to-indigo-900/40 rounded-2xl p-6 border border-blue-600">
-          <h2 className="text-xl font-bold text-blue-300 text-center mb-6">
-            Как попасть в нужный заказ
-          </h2>
+      {/* Пошаговая инструкция */}
+      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
+        <h2 className="text-lg font-bold text-blue-300 mb-4 text-center">
+          Как попасть в нужный заказ
+        </h2>
 
-          <div className="space-y-5">
-            {[
-              'Зайдите в раздел «Рейсы»',
-              'Найдите свой рейс (текущий обычно сверху) → нажмите на него',
-              'Нажмите на ЗАКАЗ, к которому прикрепляете документ',
-              'Нажмите синюю кнопку → Отправить документ → Прочие документы → выберите нужный вид CMR',
-            ].map((text, i) => (
-              <div key={i} className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
-                  {i + 1}
-                </div>
-                <p className="text-lg">{text}</p>
+        <div className="space-y-4">
+          {[
+            'Зайдите в раздел «Рейсы»',
+            'Найдите свой рейс (текущий обычно сверху) → нажмите на него',
+            'Нажмите на ЗАКАЗ, к которому прикрепляете документ',
+            'Нажмите синюю кнопку → Отправить документ → Прочие документы → выберите нужный вид CMR',
+          ].map((text, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-bold">
+                {i + 1}
               </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-            {images.slice(0, 3).map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`Шаг ${i + 1}`}
-                className="w-full rounded-xl shadow-2xl border-2 border-blue-500 cursor-pointer hover:scale-105 transition-all"
-                onClick={() => setEnlargedImage(src)}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-cyan-900/40 to-teal-900/40 rounded-2xl p-6 border border-cyan-600">
-          <h2 className="text-xl font-bold text-cyan-300 text-center mb-6">
-            Выберите способ загрузки
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-            <div className="bg-cyan-800/50 rounded-xl p-5 text-center border border-cyan-500">
-              <span className="text-4xl block mb-2">Scanner</span>
-              <p className="font-bold">Сканер</p>
-              <p className="text-sm opacity-90 mt-1">приложение само обрежет и выпрямит</p>
+              <p className="text-base leading-relaxed pt-0.5">{text}</p>
             </div>
-            <div className="bg-cyan-800/50 rounded-xl p-5 text-center border border-cyan-500">
-              <span className="text-4xl block mb-2">Camera</span>
-              <p className="font-bold">Камера</p>
-              <p className="text-sm opacity-90 mt-1">просто сделать фото</p>
-            </div>
-            <div className="bg-cyan-800/50 rounded-xl p-5 text-center border border-cyan-500">
-              <span className="text-4xl block mb-2">Gallery</span>
-              <p className="font-bold">Галерея</p>
-              <p className="text-sm opacity-90 mt-1">готовый снимок из телефона</p>
-            </div>
-          </div>
+          ))}
+        </div>
 
+        <div className="grid grid-cols-2 gap-3 mt-5">
           <img
-            src={images[3]}
-            alt="Выбор способа"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-2 border-cyan-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[3])}
+            src={images[1]}
+            alt="Шаг 1–2"
+            className="rounded-lg border border-gray-600 cursor-pointer"
+            onClick={() => setEnlargedImage(images[1])}
           />
-        </div>
-
-        <div className="bg-gradient-to-br from-amber-900/40 to-orange-900/40 rounded-2xl p-6 border-2 border-amber-600">
-          <h2 className="text-xl font-bold text-amber-300 text-center mb-5">
-            Как фотографировать правильно
-          </h2>
-
-          <div className="space-y-4 text-center">
-            <p className="text-lg">Положите лист на ровную поверхность</p>
-            <p className="text-lg">Протрите камеру телефона</p>
-            <p className="text-lg">Снимайте так, чтобы весь документ был в кадре и текст читался</p>
-          </div>
-
-          {/* Исправлено здесь — все теги закрыты */}
-          <div className="flex justify-center gap-12 my-7 text-6xl">
-            <span className="text-green-400">Checkmark</span>
-            <span className="text-red-400">Cross</span>
-          </div>
-
           <img
-            src={images[4]}
-            alt="Качественное фото"
-            className="w-full max-w-md mx-auto rounded-xl shadow-2xl border-4 border-amber-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[4])}
+            src={images[2]}
+            alt="Шаг 3–4"
+            className="rounded-lg border border-gray-600 cursor-pointer"
+            onClick={() => setEnlargedImage(images[2])}
           />
-        </div>
-
-        <div className="bg-gradient-to-r from-green-900/60 to-emerald-900/60 rounded-2xl p-8 border-4 border-green-500 text-center">
-          <p className="text-3xl font-bold text-green-300 mb-4">Готово! CMR загружен</p>
-          <p className="text-xl mb-6">
-            Цифра на заказе = количество прикреплённых документов
-          </p>
-        </div>
-
-        <div className="bg-gray-800/70 rounded-2xl p-6 border border-gray-500 text-center">
-          <p className="text-xl font-bold text-blue-300 mb-4">
-            Где посмотреть загруженные файлы?
-          </p>
-          <p className="text-lg mb-4">Рейс → кнопка «Файлы»</p>
-          <img
-            src={images[5]}
-            alt="Список файлов"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-2 border-blue-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[5])}
-          />
-        </div>
-
-        <div className="bg-gradient-to-r from-yellow-900/60 to-orange-900/60 rounded-2xl p-7 border-4 border-yellow-500 text-center">
-          <p className="text-2xl font-bold text-yellow-300 mb-5">
-            В каждом завершённом заказе обязательно должны быть:
-          </p>
-          <div className="space-y-4 text-xl">
-            <p>CMR</p>
-            <p>Stop Card</p>
-            <p>Expense Receipts</p>
-          </div>
         </div>
       </div>
 
+      {/* Способы загрузки */}
+      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
+        <h2 className="text-lg font-bold text-cyan-300 mb-4 text-center">
+          Выберите способ загрузки
+        </h2>
+
+        <div className="grid grid-cols-1 gap-4 mb-5">
+          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-2xl mb-1">Scanner</p>
+            <p className="font-semibold">Сканер</p>
+            <p className="text-sm opacity-90">приложение само обрежет и выпрямит</p>
+          </div>
+          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-2xl mb-1">Camera</p>
+            <p className="font-semibold">Камера</p>
+            <p className="text-sm opacity-90">просто сделать фото</p>
+          </div>
+          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-2xl mb-1">Gallery</p>
+            <p className="font-semibold">Галерея</p>
+            <p className="text-sm opacity-90">готовый снимок из телефона</p>
+          </div>
+        </div>
+
+        <img
+          src={images[3]}
+          alt="Выбор способа"
+          className="w-full max-w-xs mx-auto rounded-lg border border-gray-600 cursor-pointer"
+          onClick={() => setEnlargedImage(images[3])}
+        />
+      </div>
+
+      {/* Как фотографировать */}
+      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
+        <h2 className="text-lg font-bold text-amber-300 text-center mb-4">
+          Как фотографировать правильно
+        </h2>
+
+        <ul className="space-y-3 text-base">
+          <li className="flex items-center gap-3">
+            <span className="text-green-400 text-xl">Checkmark</span>
+            <span>Положите лист на ровную поверхность</span>
+          </li>
+          <li className="flex items-center gap-3">
+            <span className="text-green-400 text-xl">Checkmark</span>
+            <span>Протрите камеру телефона</span>
+          </li>
+          <li className="flex items-center gap-3">
+            <span className="text-green-400 text-xl">Checkmark</span>
+            <span>Снимайте так, чтобы весь документ был в кадре и текст читался</span>
+          </li>
+        </ul>
+
+        <div className="flex justify-center gap-10 my-6 text-5xl">
+          <span className="text-green-400">Checkmark</span>
+          <span className="text-red-400">Cross</span>
+        </div>
+
+        <img
+          src={images[4]}
+          alt="Пример хорошего фото"
+          className="w-full max-w-md mx-auto rounded-lg border border-gray-600 cursor-pointer"
+          onClick={() => setEnlargedImage(images[4])}
+        />
+      </div>
+
+      {/* Готово */}
+      <div className="bg-green-900/50 rounded-2xl p-6 mb-7 text-center border-2 border-green-600">
+        <p className="text-2xl font-bold text-green-300 mb-3">Готово! CMR загружен</p>
+        <p className="text-base">
+          Цифра на заказе показывает количество прикреплённых документов
+        </p>
+      </div>
+
+      {/* Проверка файлов */}
+      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700 text-center">
+        <p className="text-lg font-bold text-blue-300 mb-3">
+          Где посмотреть загруженные файлы?
+        </p>
+        <p className="mb-4">Рейс → кнопка «Файлы»</p>
+        <img
+          src={images[5]}
+          alt="Список файлов"
+          className="w-full max-w-sm mx-auto rounded-lg border border-gray-600 cursor-pointer"
+          onClick={() => setEnlargedImage(images[5])}
+        />
+      </div>
+
+      {/* Обязательные документы */}
+      <div className="bg-yellow-900/40 rounded-2xl p-6 border-2 border-yellow-600 text-center">
+        <p className="text-xl font-bold text-yellow-300 mb-4">
+          В каждом завершённом заказе обязательно должны быть:
+        </p>
+        <div className="space-y-3 text-lg">
+          <p>CMR</p>
+          <p>Stop Card</p>
+          <p>Expense Receipts</p>
+        </div>
+      </div>
+
+      {/* Кнопка назад */}
       <Link
         to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-lg py-5 rounded-3xl text-center shadow-2xl transition-all duration-200 z-10"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-bold py-4 rounded-2xl text-center shadow-xl transition-all z-10"
       >
         ← Вернуться к инструкциям
       </Link>
 
+      {/* Увеличенное изображение */}
       {enlargedImage && (
         <div
           className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
@@ -165,11 +196,11 @@ const AddCMRPage: React.FC = () => {
           <img
             src={enlargedImage}
             alt="Увеличенное фото"
-            className="max-w-full max-h-full rounded-2xl shadow-2xl"
+            className="max-w-full max-h-full rounded-xl"
           />
           <button
             onClick={() => setEnlargedImage(null)}
-            className="absolute top-6 right-6 text-white text-5xl font-light opacity-80 hover:opacity-100"
+            className="absolute top-5 right-5 text-white text-5xl opacity-80 hover:opacity-100"
           >
             ×
           </button>
