@@ -5,10 +5,10 @@ const AddReceiptPage: React.FC = () => {
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
   const images = [
-    '/photo/10.png',
-    '/photo/17.png',
-    '/photo/13.png',
-    '/photo/15.png',
+    '/photo/10.png', // Главный экран
+    '/photo/17.png', // Платежи
+    '/photo/13.png', // Выбор способа
+    '/photo/15.png', // Файлы
   ];
 
   return (
@@ -29,7 +29,7 @@ const AddReceiptPage: React.FC = () => {
         </p>
       </div>
 
-      {/* 10.png — общий вид */}
+      {/* 10.png */}
       <div className="flex justify-center mb-7">
         <img
           src={images[0]}
@@ -50,7 +50,7 @@ const AddReceiptPage: React.FC = () => {
             'Зайдите в раздел «Рейсы»',
             'Найдите свой рейс (текущий обычно сверху) → нажмите на него',
             'Нажмите на ЗАКАЗ, к которому прикрепляете документ',
-            'Нажмите синюю кнопку → Отправить документ → Платежи → выберите нужный вид чека',
+            'Нажмите синюю кнопку → Отправить документ → Платежи →',
           ].map((text, i) => (
             <div key={i} className="flex items-start gap-3">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-bold">
@@ -64,7 +64,7 @@ const AddReceiptPage: React.FC = () => {
         {/* 17.png */}
         <img
           src={images[1]}
-          alt="Выбор платежа"
+          alt="Платежи"
           className="w-full max-w-md mx-auto rounded-xl shadow-2xl border border-gray-600 cursor-pointer mt-6"
           onClick={() => setEnlargedImage(images[1])}
         />
@@ -80,7 +80,7 @@ const AddReceiptPage: React.FC = () => {
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
             <p className="text-4xl mb-2">Scanner</p>
             <p className="font-semibold">Сканер</p>
-            <p className="text-sm opacity-90">приложение само обрежет и выпрямит</p>
+            <p className="text-sm opacity-90">навести камеру, приложение само обрежет и выпрямит</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
             <p className="text-4xl mb-2">Camera</p>
@@ -90,7 +90,7 @@ const AddReceiptPage: React.FC = () => {
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
             <p className="text-4xl mb-2">Gallery</p>
             <p className="font-semibold">Галерея</p>
-            <p className="text-sm opacity-90">готовый снимок из телефона</p>
+            <p className="text-sm opacity-90">взять уже готовый снимок из телефона</p>
           </div>
         </div>
 
@@ -108,18 +108,15 @@ const AddReceiptPage: React.FC = () => {
           Как фотографировать правильно
         </h2>
 
-        <ul className="space-y-3 text-base">
+        <ul className="space-y-4 text-base">
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            Положите лист на ровную поверхность
+            <span>Checkmark</span> Положите лист на ровную поверхность
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            Протрите камеру телефона
+            <span>Checkmark</span> Протрите камеру телефона
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-green-400 text-xl">Checkmark</span>
-            Снимайте так, чтобы весь документ был в кадре и текст читался
+            <span>Checkmark</span> Снимайте так, чтобы весь документ был в кадре и текст читался
           </li>
         </ul>
 
@@ -147,6 +144,14 @@ const AddReceiptPage: React.FC = () => {
           <li>• Сумма: обязательно</li>
           <li>• Платёжная карта (только для заправок) → выберите нужную карту</li>
         </ul>
+
+        {/* 18.png */}
+        <img
+          src="/photo/18.png"
+          alt="Распознанный чек"
+          className="w-full max-w-md mx-auto rounded-xl shadow-2xl border border-purple-500 cursor-pointer mt-6"
+          onClick={() => setEnlargedImage('/photo/18.png')}
+        />
       </div>
 
       {/* Готово */}
