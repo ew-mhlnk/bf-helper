@@ -124,10 +124,6 @@ const AddCMRPage: React.FC = () => {
           </li>
         </ul>
 
-        <div className="flex justify-center gap-12 my-7 text-5xl">
-          <span className="text-green-400">Checkmark</span>
-          <span className="text-red-400">Cross</span>
-        </div>
 
         <img
           src={images[4]}
