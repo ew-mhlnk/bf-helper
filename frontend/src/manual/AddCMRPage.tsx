@@ -85,16 +85,19 @@ const AddCMRPage: React.FC = () => {
 
         <div className="space-y-4">
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-4xl mb-2">🔍</p>
             <p className="font-semibold">Сканер</p>
-            <p className="text-sm opacity-90 mt-1">приложение само обрежет и выпрямит</p>
+            <p className="text-sm opacity-90">навести камеру, приложение само обрежет и выпрямит</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-4xl mb-2">📸</p>
             <p className="font-semibold">Камера</p>
-            <p className="text-sm opacity-90 mt-1">просто сделать фото</p>
+            <p className="text-sm opacity-90">просто сделать фото</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
+            <p className="text-4xl mb-2">🖼</p>
             <p className="font-semibold">Галерея</p>
-            <p className="text-sm opacity-90 mt-1">готовый снимок из телефона</p>
+            <p className="text-sm opacity-90">взять уже готовый снимок из телефона</p>
           </div>
         </div>
 
@@ -123,6 +126,9 @@ const AddCMRPage: React.FC = () => {
             <span>✔️</span> Снимайте так, чтобы весь документ был в кадре и текст читался
           </li>
         </ul>
+
+          
+
 
 
         <img

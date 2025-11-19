@@ -78,17 +78,17 @@ const AddReceiptPage: React.FC = () => {
 
         <div className="space-y-4">
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">Scanner</p>
+            <p className="text-4xl mb-2">🔍</p>
             <p className="font-semibold">Сканер</p>
             <p className="text-sm opacity-90">навести камеру, приложение само обрежет и выпрямит</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">Camera</p>
+            <p className="text-4xl mb-2">📸</p>
             <p className="font-semibold">Камера</p>
             <p className="text-sm opacity-90">просто сделать фото</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">Gallery</p>
+            <p className="text-4xl mb-2">🖼</p>
             <p className="font-semibold">Галерея</p>
             <p className="text-sm opacity-90">взять уже готовый снимок из телефона</p>
           </div>
@@ -110,19 +110,19 @@ const AddReceiptPage: React.FC = () => {
 
         <ul className="space-y-4 text-base">
           <li className="flex items-center gap-3">
-            <span>Checkmark</span> Положите лист на ровную поверхность
+            <span>✅</span> Положите лист на ровную поверхность
           </li>
           <li className="flex items-center gap-3">
-            <span>Checkmark</span> Протрите камеру телефона
+            <span>✅</span> Протрите камеру телефона
           </li>
           <li className="flex items-center gap-3">
-            <span>Checkmark</span> Снимайте так, чтобы весь документ был в кадре и текст читался
+            <span>✅</span> Снимайте так, чтобы весь документ был в кадре и текст читался
           </li>
         </ul>
 
         <div className="flex justify-center gap-12 my-7 text-5xl">
-          <span className="text-green-400">Checkmark</span>
-          <span className="text-red-400">Cross</span>
+          <span className="text-green-400">✅</span>
+          <span className="text-red-400">❌</span>
         </div>
       </div>
 
