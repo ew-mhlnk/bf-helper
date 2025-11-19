@@ -17,11 +17,12 @@ import LoginPasswordPage from './manual/LoginPasswordPage'; // Новый имп
 import OpenTripPage from './manual/OpenTripPage';
 import CloseTripPage from './manual/CloseTripPage';
 import AddCMRPage from './manual/AddCMRPage';
+import AddReceiptPage from './manual/AddReceiptPage';
 
 function App() {
   return (
     <Router>
-      <div className="bg-[#141414] min-h-screen text-white p-4">
+      <div className="bg-[#0e0505] min-h-screen text-white p-4">
         <h1 className="text-2xl font-bold mb-4">BelFrost помощник</h1>
         <nav>
           <Link
@@ -54,6 +55,7 @@ function App() {
           <Route path="/manual/open-trip" element={<OpenTripPage />} />
           <Route path="/manual/close-trip" element={<CloseTripPage />} />
           <Route path="/manual/add-cmr" element={<AddCMRPage />} />
+          <Route path="/manual/add-receipt" element={<AddReceiptPage />} />
         </Routes>
       </div>
     </Router>

@@ -4,37 +4,51 @@ import { Link } from 'react-router-dom';
 const ManualChoicePage: React.FC = () => {
   return (
     <div className="bg-[#141414] min-h-screen text-white p-4">
-      <h1 className="text-2xl font-bold mb-4">Инструкции к TruckOffice</h1>
-      <Link
-        to="/manual/start-work"
-        className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
-      >
-        Начало работы
-      </Link>
-      <Link
-        to="/manual/login-password"
-        className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
-      >
-        Логин и пароль
-      </Link>
-      <Link
-  to="/manual/open-trip"
-  className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
->
-  Как открыть рейс?
-</Link>
-<Link
-  to="/manual/close-trip"
-  className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
->
-  Как закрыть рейс?
-</Link>
-<Link
-  to="/manual/add-cmr"
-  className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
->
-  Как добавить CMR
-</Link>
+      <h1 className="text-2xl font-bold mb-6 text-center">Инструкции к TruckOffice</h1>
+
+      <div className="space-y-4 max-w-md mx-auto">
+        <Link
+          to="/manual/start-work"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Начало работы
+        </Link>
+
+        <Link
+          to="/manual/login-password"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Логин и пароль
+        </Link>
+
+        <Link
+          to="/manual/open-trip"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Как открыть рейс?
+        </Link>
+
+        <Link
+          to="/manual/close-trip"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Как закрыть рейс?
+        </Link>
+
+        <Link
+          to="/manual/add-cmr"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Как добавить CMR
+        </Link>
+
+        <Link
+          to="/manual/add-receipt"
+          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
+        >
+          Как добавить чек
+        </Link>
+      </div>
     </div>
   );
 };
