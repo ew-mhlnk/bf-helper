@@ -15,14 +15,13 @@ const AddCMRPage: React.FC = () => {
 
   return (
     <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
-
       <h1 className="text-2xl font-bold text-center mb-6 mt-3">
         Как добавить CMR
       </h1>
 
       {/* Главное правило */}
       <div className="bg-red-900/40 border-2 border-red-600 rounded-2xl p-5 mb-7 text-center">
-        <p className="text-lg font-bold text-red-300 leading-relaxed">
+        <p className="text-lg font-bold text-red-300">
           Любой документ загружается только через нужный рейс
         </p>
         <p className="text-base mt-2">
@@ -40,7 +39,7 @@ const AddCMRPage: React.FC = () => {
         />
       </div>
 
-      {/* Пошагово */}
+      {/* Пошаговая инструкция */}
       <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
         <h2 className="text-lg font-bold text-blue-300 mb-4 text-center">
           Как попасть в нужный заказ
@@ -57,7 +56,7 @@ const AddCMRPage: React.FC = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-bold">
                 {i + 1}
               </div>
-              <p className="text-base leading-relaxed pt-0.5">{text}</p>
+              <p className="text-base pt-0.5">{text}</p>
             </div>
           ))}
         </div>
@@ -65,13 +64,13 @@ const AddCMRPage: React.FC = () => {
         <div className="grid grid-cols-2 gap-3 mt-5">
           <img
             src={images[1]}
-            alt="Шаг 1–2"
+            alt="Шаги 1–2"
             className="rounded-lg border border-gray-600 cursor-pointer"
             onClick={() => setEnlargedImage(images[1])}
           />
           <img
             src={images[2]}
-            alt="Шаг 3–4"
+            alt="Шаги 3–4"
             className="rounded-lg border border-gray-600 cursor-pointer"
             onClick={() => setEnlargedImage(images[2])}
           />
@@ -80,58 +79,55 @@ const AddCMRPage: React.FC = () => {
 
       {/* Способы загрузки */}
       <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
-        <h2 className="text-lg font-bold text-cyan-300 mb-4 text-center">
+        <h2 className="text-lg font-bold text-cyan-300 mb-5 text-center">
           Выберите способ загрузки
         </h2>
 
-        <div className="space-y-4 mb-5">
+        <div className="space-y-4">
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-3xl mb-1">Scanner</p>
+            <p className="text-4xl mb-2">Scanner</p>
             <p className="font-semibold">Сканер</p>
-            <p className="text-sm opacity-90">приложение само обрежет и выпрямит</p>
+            <p className="text-sm opacity-90 mt-1">приложение само обрежет и выпрямит</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-3xl mb-1">Camera</p>
+            <p className="text-4xl mb-2">Camera</p>
             <p className="font-semibold">Камера</p>
-            <p className="text-sm opacity-90">просто сделать фото</p>
+            <p className="text-sm opacity-90 mt-1">просто сделать фото</p>
           </div>
           <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-3xl mb-1">Gallery</p>
+            <p className="text-4xl mb-2">Gallery</p>
             <p className="font-semibold">Галерея</p>
-            <p className="text-sm opacity-90">готовый снимок из телефона</p>
+            <p className="text-sm opacity-90 mt-1">готовый снимок из телефона</p>
           </div>
         </div>
 
         <img
           src={images[3]}
           alt="Выбор способа"
-          className="w-full max-w-xs mx-auto rounded-lg border border-gray-600 cursor-pointer"
+          className="w-full max-w-xs mx-auto rounded-lg border border-gray-600 cursor-pointer mt-5"
           onClick={() => setEnlargedImage(images[3])}
         />
       </div>
 
       {/* Как фотографировать */}
       <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
-        <h2 className="text-lg font-bold text-amber-300 text-center mb-4">
+        <h2 className="text-lg font-bold text-amber-300 text-center mb-5">
           Как фотографировать правильно
         </h2>
 
-        <ul className="space-y-3 text-base">
+        <ul className="space-y-4 text-base">
           <li className="flex items-center gap-3">
-            <span className="text-xl">Checkmark</span>
-            Положите лист на ровную поверхность
+            <span>Checkmark</span> Положите лист на ровную поверхность
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-xl">Checkmark</span>
-            Протрите камеру телефона
+            <span>Checkmark</span> Протрите камеру телефона
           </li>
           <li className="flex items-center gap-3">
-            <span className="text-xl">Checkmark</span>
-            Снимайте так, чтобы весь документ был в кадре и текст читался
+            <span>Checkmark</span> Снимайте так, чтобы весь документ был в кадре и текст читался
           </li>
         </ul>
 
-        <div className="flex justify-center gap-10 my-6 text-4xl">
+        <div className="flex justify-center gap-12 my-7 text-5xl">
           <span className="text-green-400">Checkmark</span>
           <span className="text-red-400">Cross</span>
         </div>
@@ -139,7 +135,7 @@ const AddCMRPage: React.FC = () => {
         <img
           src={images[4]}
           alt="Пример хорошего фото"
-          className="w-full max-w-md mx-auto rounded-lg border border-gray-600 cursor-pointer"
+          className="w-full max-w-lg mx-auto rounded-lg border border-gray-600 cursor-pointer"
           onClick={() => setEnlargedImage(images[4])}
         />
       </div>
@@ -173,8 +169,8 @@ const AddCMRPage: React.FC = () => {
         </p>
         <div className="space-y-3 text-lg">
           <p>CMR</p>
-          <p>Stop Card</p>
-          <p>Expense Receipts</p>
+          <p>Карта простоя</p>
+          <p>Чеки расходов</p>
         </div>
       </div>
 
@@ -186,7 +182,7 @@ const AddCMRPage: React.FC = () => {
         ← Вернуться к инструкциям
       </Link>
 
-      {/* Модальное окно */}
+      {/* Увеличенное изображение */}
       {enlargedImage && (
         <div
           className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
