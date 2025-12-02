@@ -1,47 +1,45 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MapPin, ArrowRight } from 'lucide-react';
+import Layout from './components/Layout';
 
 const DirectionChoicePage: React.FC = () => {
   const { truckType } = useParams<{ truckType: string }>();
+  const navigate = useNavigate();
 
-  console.log('truckType:', truckType); // Отладочный вывод в консоль
+  const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
+
+  // Список направлений (данные)
+  const routes = [
+    { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
+    { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
+    { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
+    { id: 'krasnodar', name: 'Краснодар', desc: 'Южное направление' },
+  ];
 
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Выберите направление для {truckType === 'belarus' ? 'белорусского' : truckType === 'kazakh' ? 'казахского' : 'неизвестного'} тягача
-      </h1>
-      {truckType ? (
-        <>
-          <Link
-            to={`/${truckType}/asian-trip`}
-            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
+    <Layout title={title}>
+      <div className="space-y-3 mt-2">
+        {routes.map((route) => (
+          <div
+            key={route.id}
+            onClick={() => navigate(`/${truckType}/${route.id}`)}
+            className="group flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500"
           >
-            Азиатский рейс
-          </Link>
-          <Link
-            to={`/${truckType}/european-trip`}
-            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
-          >
-            Европейский рейс
-          </Link>
-          <Link
-            to={`/${truckType}/manchzhuriya`}
-            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
-          >
-            Маньчжурия
-          </Link>
-          <Link
-            to={`/${truckType}/krasnodar`}
-            className="bg-blue-700 w-full max-w-[24rem] h-10 text-white py-2 mb-2 rounded-lg block text-center hover:bg-blue-800 active:bg-blue-900 transition duration-200"
-          >
-            Краснодар
-          </Link>
-        </>
-      ) : (
-        <p>Ошибка: truckType не определён. Проверь маршруты в URL: {window.location.pathname}</p>
-      )}
-    </div>
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-300">
+                <MapPin size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-900 dark:text-white">{route.name}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{route.desc}</p>
+              </div>
+            </div>
+            <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
+          </div>
+        ))}
+      </div>
+    </Layout>
   );
 };
 

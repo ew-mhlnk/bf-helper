@@ -1,153 +1,201 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Play, Truck, Gauge, Wrench, CheckCircle, AlertTriangle, ZoomIn, X, ChevronRight } from 'lucide-react';
+import Layout from '../components/Layout';
 
 const OpenTripPage: React.FC = () => {
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
-  const images = [
-    '/photo/3.png',
-    '/photo/4.png',
-    '/photo/5.png',
-    '/photo/6.png',
-    '/photo/7.png',
-    '/photo/8.png',
-    '/photo/9.png',
-  ];
-
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
-      {/* Заголовок */}
-      <h1 className="text-3xl font-bold text-center mb-6 mt-4">
-        Как открыть рейс
-      </h1>
+    <Layout title="Как открыть рейс">
+      <div className="space-y-6 pb-8">
 
-      {/* Важная заметка */}
-      <div className="bg-amber-900/40 border border-amber-600 rounded-2xl p-5 mb-8 text-center">
-        <p className="text-lg font-bold text-amber-300">
-          Рейс открывается только на базе или при перецепке
-        </p>
-      </div>
+        {/* ПРЕДУПРЕЖДЕНИЕ */}
+        <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 flex gap-3 items-start">
+          <div className="text-amber-600 dark:text-amber-400 shrink-0 mt-1">
+            <AlertTriangle size={24} />
+          </div>
+          <div>
+            <h3 className="font-bold text-amber-700 dark:text-amber-400 text-lg">
+              Важно знать
+            </h3>
+            <p className="text-amber-600/90 dark:text-amber-300/90 text-sm mt-1 leading-relaxed">
+              Рейс можно открыть только находясь на базе или при перецепке (радиус 1.5 км от машины).
+            </p>
+          </div>
+        </div>
 
-      {/* Шаги */}
-      <div className="space-y-8">
-
-        {/* Начало */}
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-          <div className="flex items-start gap-4 mb-5">
-            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">1</div>
-            <div>
-              <p className="text-lg">Откройте раздел <strong>«Рейсы»</strong> в главном меню</p>
-              <p className="mt-2">Нажмите большую кнопку <strong>внизу экрана</strong></p>
+        {/* ШАГ 1: Начало */}
+        <StepSection 
+          number={1}
+          title="Запуск"
+          icon={<Play size={20} className="text-white" />}
+          headerColor="bg-blue-600"
+          content={
+            <div className="space-y-3">
+              <p>
+                Откройте раздел <span className="font-bold">«Рейсы»</span> и нажмите большую кнопку внизу экрана.
+              </p>
+              <ImageThumbnail src="/photo/3.png" onClick={() => setEnlargedImage('/photo/3.png')} />
             </div>
+          }
+        />
+
+        {/* ШАГ 2: Выбор техники */}
+        <StepSection 
+          number={2}
+          title="Тягач и прицеп"
+          icon={<Truck size={20} className="text-white" />}
+          headerColor="bg-indigo-600"
+          content={
+            <div className="space-y-3">
+              <p>
+                Выберите тягач и полуприцеп из списка.
+                <br />
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  (В списке отображается только техника рядом с вами)
+                </span>
+              </p>
+              <ImageThumbnail src="/photo/4.png" onClick={() => setEnlargedImage('/photo/4.png')} />
+            </div>
+          }
+        />
+
+        {/* ШАГ 3: Приборы (Сетка фото) */}
+        <StepSection 
+          number={3}
+          title="Показания приборов"
+          icon={<Gauge size={20} className="text-white" />}
+          headerColor="bg-emerald-600"
+          content={
+            <div className="space-y-4">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                <li>Введите остаток топлива в тягаче</li>
+                <li>Введите остаток в рефе (если есть)</li>
+                <li>Сделайте фото одометра и датчиков</li>
+              </ul>
+              
+              {/* Сетка из 3 фото */}
+              <div className="grid grid-cols-3 gap-2">
+                {['/photo/5.png', '/photo/6.png', '/photo/7.png'].map((src, i) => (
+                  <div key={i} className="aspect-square relative group cursor-pointer rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700" onClick={() => setEnlargedImage(src)}>
+                    <img src={src} alt="Прибор" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-center text-gray-400 flex items-center justify-center gap-1">
+                <ZoomIn size={12} /> Нажмите на фото
+              </p>
+            </div>
+          }
+        />
+
+        {/* ШАГ 4: Техсостояние */}
+        <StepSection 
+          number={4}
+          title="Тех. состояние"
+          icon={<Wrench size={20} className="text-white" />}
+          headerColor="bg-orange-500"
+          content={
+            <div className="space-y-3">
+              <p>
+                Укажите замечания текстом (если есть).
+                Проставьте галочки, подтверждая исправность узлов.
+              </p>
+              <ImageThumbnail src="/photo/8.png" onClick={() => setEnlargedImage('/photo/8.png')} />
+            </div>
+          }
+        />
+
+        {/* ФИНАЛ */}
+        <div className="p-6 rounded-2xl bg-gradient-to-br from-green-600 to-teal-700 shadow-lg text-white text-center">
+          <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
+            <CheckCircle size={28} className="text-white" />
           </div>
-          <img
-            src={images[0]}
-            alt="Кнопка создания рейса"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-2 border-gray-600 cursor-pointer hover:border-blue-500 transition-all"
-            onClick={() => setEnlargedImage(images[0])}
-          />
-        </div>
-
-        {/* Шаг 1 */}
-        <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 rounded-2xl p-6 border border-blue-600">
-          <h2 className="text-xl font-bold text-blue-300 mb-4 text-center">Шаг 1 → Выбор тягача и полуприцепа</h2>
-          <p className="text-center mb-4">В списках только техника в радиусе 1,5 км</p>
-          <p className="text-lg text-center mb-4">
-            Выберите тягач → выберите прицеп → нажмите <strong>Далее</strong>
+          <h3 className="text-xl font-bold mb-2">Подтверждение</h3>
+          <p className="opacity-90 text-sm mb-4">
+            Проверьте данные. После нажатия «Начать» у вас будет 6 секунд на отмену.
           </p>
-          <img
-            src={images[1]}
-            alt="Выбор техники"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-2 border-blue-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[1])}
-          />
-        </div>
-
-        {/* Шаг 2 */}
-        <div className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 rounded-2xl p-6 border border-emerald-600">
-          <h2 className="text-xl font-bold text-emerald-300 mb-4 text-center">Шаг 2 → Показания приборов</h2>
-          <p className="text-center mb-4">Обязательные поля отмечены *</p>
-          <p className="text-lg text-center mb-4">
-            Введите остатки топлива в тягаче и прицепе<br />
-            Прикрепите фото одометра и датчиков топлива
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-            {[images[2], images[3], images[4]].map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`Фото приборов ${i + 1}`}
-                className="w-full rounded-xl shadow-xl border-2 border-emerald-500 cursor-pointer hover:scale-105 transition-all"
-                onClick={() => setEnlargedImage(src)}
-              />
-            ))}
+          <div 
+            className="rounded-xl overflow-hidden cursor-pointer border-2 border-white/30 shadow-inner max-w-[200px] mx-auto"
+            onClick={() => setEnlargedImage('/photo/9.png')}
+          >
+            <img src="/photo/9.png" alt="Финал" className="w-full opacity-90 hover:opacity-100 transition-opacity" />
           </div>
-          <p className="text-center mt-4 font-semibold text-emerald-300">Нажмите Далее</p>
         </div>
 
-        {/* Шаг 3 */}
-        <div className="bg-gradient-to-br from-orange-900/40 to-red-900/40 rounded-2xl p-6 border border-orange-600">
-          <h2 className="text-xl font-bold text-orange-300 mb-4 text-center">Шаг 3 → Техническое состояние</h2>
-          <p className="text-center mb-4">Укажите замечания, если есть</p>
-          <p className="text-lg text-center mb-4">
-            Поставьте галочки напротив всех исправных пунктов<br />
-            <span className="font-bold">Сверяйтесь с фактическим состоянием!</span>
-          </p>
-          <img
-            src={images[5]}
-            alt="Техсостояние"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-2 border-orange-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[5])}
-          />
-          <p className="text-center mt-4 font-bold text-orange-300">Нажмите «Начать новый рейс»</p>
-        </div>
-
-        {/* Финал */}
-        <div className="bg-gradient-to-r from-green-900/50 to-emerald-900/50 rounded-2xl p-6 border-2 border-green-500 text-center">
-          <p className="text-2xl font-bold text-green-300 mb-4">Появится окно подтверждения</p>
-          <p className="text-lg mb-4">Проверьте всё ещё раз → подтвердите</p>
-          <p className="text-yellow-400 font-bold text-lg mb-4">
-            У вас будет 6 секунд на отмену
-          </p>
-          <img
-            src={images[6]}
-            alt="Подтверждение рейса"
-            className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-4 border-green-500 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => setEnlargedImage(images[6])}
-          />
-          <p className="text-3xl font-bold text-green-400 mt-6">Готово! Рейс открыт</p>
-        </div>
       </div>
 
-      {/* Фиксированная кнопка */}
-      <Link
-        to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 active:scale-95 text-white font-bold text-lg py-5 rounded-3xl text-center shadow-2xl transition-all duration-200 z-10"
-      >
-        ← Вернуться к инструкциям
-      </Link>
-
-      {/* Увеличенное изображение */}
+      {/* МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ФОТО */}
       {enlargedImage && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setEnlargedImage(null)}
         >
-          <img
-            src={enlargedImage}
-            alt="Увеличенное изображение"
-            className="max-w-full max-h-full rounded-2xl shadow-2xl"
-          />
-          <button
-            onClick={() => setEnlargedImage(null)}
-            className="absolute top-6 right-6 text-white text-5xl font-light opacity-80 hover:opacity-100"
-          >
-            ×
-          </button>
+          <div className="relative max-w-full max-h-full">
+            <img
+              src={enlargedImage}
+              alt="Увеличенное изображение"
+              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            />
+            <button
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-gray-800/50 rounded-full"
+              onClick={() => setEnlargedImage(null)}
+            >
+              <X size={32} />
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
+
+// --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ ---
+
+// 1. Компонент Секции Шага
+interface StepProps {
+  number: number;
+  title: string;
+  icon: React.ReactNode;
+  headerColor: string;
+  content: React.ReactNode;
+}
+
+const StepSection: React.FC<StepProps> = ({ number, title, icon, headerColor, content }) => (
+  <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1e1e1e] overflow-hidden shadow-sm">
+    {/* Заголовок шага */}
+    <div className="flex items-center gap-3 p-3 border-b border-gray-100 dark:border-gray-800">
+      <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md ${headerColor}`}>
+        {icon}
+      </div>
+      <h3 className="font-bold text-gray-900 dark:text-white flex-1">
+        Шаг {number}: <span className="font-normal opacity-80">{title}</span>
+      </h3>
+    </div>
+    
+    {/* Контент шага */}
+    <div className="p-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      {content}
+    </div>
+  </div>
+);
+
+// 2. Компонент Миниатюры Картинки
+const ImageThumbnail = ({ src, onClick }: { src: string, onClick: () => void }) => (
+  <div 
+    className="relative group cursor-pointer rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm mt-2"
+    onClick={onClick}
+  >
+    <img src={src} alt="Скриншот" className="w-full object-cover max-h-60" />
+    
+    {/* Оверлей с лупой */}
+    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+      <div className="bg-black/50 text-white px-3 py-1 rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 backdrop-blur-sm">
+        <ZoomIn size={12} /> Увеличить
+      </div>
+    </div>
+  </div>
+);
 
 export default OpenTripPage;

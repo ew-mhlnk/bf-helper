@@ -1,222 +1,203 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Receipt, Navigation, ScanLine, Camera, Image, CheckCircle, AlertTriangle, BrainCircuit, ZoomIn, X, FileText, CreditCard } from 'lucide-react';
+import Layout from '../components/Layout';
 
 const AddReceiptPage: React.FC = () => {
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
-  const images = [
-    '/photo/10.png', // Главный экран
-    '/photo/17.png', // Платежи
-    '/photo/13.png', // Выбор способа
-    '/photo/15.png', // Файлы
-  ];
-
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
+    <Layout title="Как добавить чек">
+      <div className="space-y-6 pb-8">
 
-      {/* Заголовок */}
-      <h1 className="text-3xl font-bold text-center mb-6 mt-4">
-        Как добавить чек
-      </h1>
+        {/* ГЛАВНОЕ ПРАВИЛО */}
+        <div className="p-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 flex gap-3 items-start">
+          <div className="text-red-600 dark:text-red-400 shrink-0 mt-1">
+            <AlertTriangle size={24} />
+          </div>
+          <div>
+            <h3 className="font-bold text-red-700 dark:text-red-400 text-lg">
+              Внимание
+            </h3>
+            <p className="text-red-600/90 dark:text-red-300/90 text-sm mt-1 leading-relaxed">
+              Загружайте чек только в тот рейс, к которому он относится.
+            </p>
+          </div>
+        </div>
 
-      {/* Главное правило */}
-      <div className="bg-red-900/40 border-2 border-red-600 rounded-2xl p-5 mb-7 text-center">
-        <p className="text-lg font-bold text-red-300 leading-relaxed">
-          Любой документ загружается только через нужный рейс
-        </p>
-        <p className="text-base mt-2">
-          Отправка <span className="font-bold">ЛЮБЫХ</span> документов начинается с выбора РЕЙСА
-        </p>
-      </div>
-
-      {/* 10.png */}
-      <div className="flex justify-center mb-7">
-        <img
-          src={images[0]}
-          alt="Главный экран"
-          className="w-80 max-w-full rounded-xl shadow-xl border border-gray-600 cursor-pointer"
-          onClick={() => setEnlargedImage(images[0])}
-        />
-      </div>
-
-      {/* Пошаговая инструкция */}
-      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
-        <h2 className="text-lg font-bold text-blue-300 mb-4 text-center">
-          Как попасть в нужный заказ
-        </h2>
-
-        <div className="space-y-4">
-          {[
-            'Зайдите в раздел «Рейсы»',
-            'Найдите свой рейс (текущий обычно сверху) → нажмите на него',
-            'Нажмите на ЗАКАЗ, к которому прикрепляете документ',
-            'Нажмите синюю кнопку → Отправить документ → Платежи →',
-          ].map((text, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-bold">
-                {i + 1}
+        {/* ШАГ 1: Навигация */}
+        <StepSection 
+          number={1}
+          title="Раздел «Платежи»"
+          icon={<Navigation size={20} className="text-white" />}
+          headerColor="bg-blue-600"
+          content={
+            <div className="space-y-3">
+              <ul className="space-y-2 text-sm">
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">1.</span>
+                  Откройте текущий рейс → нажмите на <span className="font-bold">ЗАКАЗ</span>.
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">2.</span>
+                  Нажмите синюю кнопку <span className="font-bold">«+»</span> → Отправить документ.
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">3.</span>
+                  Выберите пункт <span className="font-bold">«Платежи»</span>.
+                </li>
+              </ul>
+              
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                 <ImageThumbnail src="/photo/10.png" onClick={() => setEnlargedImage('/photo/10.png')} />
+                 <ImageThumbnail src="/photo/17.png" onClick={() => setEnlargedImage('/photo/17.png')} />
               </div>
-              <p className="text-base pt-0.5">{text}</p>
             </div>
-          ))}
+          }
+        />
+
+        {/* ШАГ 2: Выбор способа */}
+        <StepSection 
+          number={2}
+          title="Способ загрузки"
+          icon={<ScanLine size={20} className="text-white" />}
+          headerColor="bg-purple-600"
+          content={
+            <div className="space-y-3">
+              <p className="mb-2">Выберите вариант:</p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {/* Сканер */}
+                <div className="p-3 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 text-center">
+                  <div className="flex justify-center mb-1 text-purple-600 dark:text-purple-400"><ScanLine size={24}/></div>
+                  <div className="font-bold text-purple-900 dark:text-purple-100 text-sm">Сканер</div>
+                  <div className="text-xs text-purple-700/70 dark:text-purple-300/70 mt-1">Обрежет лишнее</div>
+                </div>
+
+                {/* Камера */}
+                <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-center">
+                  <div className="flex justify-center mb-1 text-gray-600 dark:text-gray-400"><Camera size={24}/></div>
+                  <div className="font-bold text-gray-900 dark:text-white text-sm">Камера</div>
+                </div>
+
+                {/* Галерея */}
+                <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-center">
+                  <div className="flex justify-center mb-1 text-gray-600 dark:text-gray-400"><Image size={24}/></div>
+                  <div className="font-bold text-gray-900 dark:text-white text-sm">Галерея</div>
+                </div>
+              </div>
+
+              <ImageThumbnail src="/photo/13.png" onClick={() => setEnlargedImage('/photo/13.png')} />
+            </div>
+          }
+        />
+
+        {/* ШАГ 3: Проверка ИИ (САМОЕ ВАЖНОЕ) */}
+        <StepSection 
+          number={3}
+          title="Проверка ИИ"
+          icon={<BrainCircuit size={20} className="text-white" />}
+          headerColor="bg-pink-600"
+          content={
+            <div className="space-y-4">
+              <div className="flex gap-3 p-3 bg-pink-50 dark:bg-pink-900/20 rounded-lg border border-pink-100 dark:border-pink-900/50">
+                <div className="shrink-0 mt-0.5 text-pink-600 dark:text-pink-400"><AlertTriangle size={18}/></div>
+                <p className="text-sm text-pink-800 dark:text-pink-300 font-medium">
+                  ИИ заполнит поля автоматически, но он часто ошибается. Проверьте каждую строку!
+                </p>
+              </div>
+
+              <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                <li className="flex items-start gap-3">
+                  <div className="shrink-0 mt-0.5 text-green-500"><CheckCircle size={16}/></div>
+                  <span><span className="font-bold">Сумма и Валюта:</span> Самое важное поле. Сверьте с бумажкой.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="shrink-0 mt-0.5 text-blue-500"><CreditCard size={16}/></div>
+                  <span><span className="font-bold">Карта оплаты:</span> Для заправок обязательно выберите правильную карту (Газпром/E1 и т.д.).</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="shrink-0 mt-0.5 text-gray-400"><FileText size={16}/></div>
+                  <span><span className="font-bold">Тип расхода:</span> Топливо, Стоянка или Платон?</span>
+                </li>
+              </ul>
+
+              <ImageThumbnail src="/photo/18.png" onClick={() => setEnlargedImage('/photo/18.png')} />
+            </div>
+          }
+        />
+
+        {/* ФИНАЛ */}
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-teal-600 to-green-600 shadow-lg text-white text-center">
+          <Receipt size={48} className="mx-auto mb-3 opacity-90" />
+          <h3 className="text-xl font-bold">Готово!</h3>
+          <p className="opacity-90">Чек сохранен в системе.</p>
         </div>
 
-        {/* 17.png */}
-        <img
-          src={images[1]}
-          alt="Платежи"
-          className="w-full max-w-md mx-auto rounded-xl shadow-2xl border border-gray-600 cursor-pointer mt-6"
-          onClick={() => setEnlargedImage(images[1])}
-        />
       </div>
 
-      {/* Способы загрузки */}
-      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
-        <h2 className="text-lg font-bold text-cyan-300 mb-5 text-center">
-          Выберите способ загрузки
-        </h2>
-
-        <div className="space-y-4">
-          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">🔍</p>
-            <p className="font-semibold">Сканер</p>
-            <p className="text-sm opacity-90">навести камеру, приложение само обрежет и выпрямит</p>
-          </div>
-          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">📸</p>
-            <p className="font-semibold">Камера</p>
-            <p className="text-sm opacity-90">просто сделать фото</p>
-          </div>
-          <div className="bg-cyan-900/30 rounded-lg p-4 text-center border border-cyan-700">
-            <p className="text-4xl mb-2">🖼</p>
-            <p className="font-semibold">Галерея</p>
-            <p className="text-sm opacity-90">взять уже готовый снимок из телефона</p>
-          </div>
-        </div>
-
-        <img
-          src={images[2]}
-          alt="Выбор способа"
-          className="w-full max-w-xs mx-auto rounded-lg border border-gray-600 cursor-pointer mt-5"
-          onClick={() => setEnlargedImage(images[2])}
-        />
-      </div>
-
-      {/* Как фотографировать */}
-      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700">
-        <h2 className="text-lg font-bold text-amber-300 text-center mb-5">
-          Как фотографировать правильно
-        </h2>
-
-        <ul className="space-y-4 text-base">
-          <li className="flex items-center gap-3">
-            <span>✅</span> Положите лист на ровную поверхность
-          </li>
-          <li className="flex items-center gap-3">
-            <span>✅</span> Протрите камеру телефона
-          </li>
-          <li className="flex items-center gap-3">
-            <span>✅</span> Снимайте так, чтобы весь документ был в кадре и текст читался
-          </li>
-        </ul>
-
-        <div className="flex justify-center gap-12 my-7 text-5xl">
-          <span className="text-green-400">✅</span>
-          <span className="text-red-400">❌</span>
-        </div>
-      </div>
-
-      {/* Проверка ИИ */}
-      <div className="bg-gradient-to-br from-purple-900/40 to-indigo-900/40 rounded-2xl p-6 mb-8 border border-purple-600">
-        <h2 className="text-xl font-bold text-purple-300 text-center mb-5">
-          Проверьте и исправьте распознанное ИИ
-        </h2>
-        <p className="text-center mb-4">
-          ИИ заполнит поля автоматически — пройдитесь по ним сверху вниз:
-        </p>
-        <ul className="space-y-3 text-base text-center">
-          <li>• Тип оплаты: наличные или безналично</li>
-          <li>• Дата: проверьте правильность</li>
-          <li>• Номер чека: можно оставить пустым</li>
-          <li>• Страна: добавьте/исправьте, если ошибся ИИ</li>
-          <li>• Наименование платежа: выберите из списка (топливо, стоянка, паром и т.д.)</li>
-          <li>• Количество: если нужно</li>
-          <li>• Сумма: обязательно</li>
-          <li>• Платёжная карта (только для заправок) → выберите нужную карту</li>
-        </ul>
-
-        {/* 18.png */}
-        <img
-          src="/photo/18.png"
-          alt="Распознанный чек"
-          className="w-full max-w-md mx-auto rounded-xl shadow-2xl border border-purple-500 cursor-pointer mt-6"
-          onClick={() => setEnlargedImage('/photo/18.png')}
-        />
-      </div>
-
-      {/* Готово */}
-      <div className="bg-green-900/50 rounded-2xl p-6 mb-7 text-center border-2 border-green-600">
-        <p className="text-2xl font-bold text-green-300 mb-3">Готово! Чек загружен</p>
-        <p className="text-base">
-          Цифра на заказе показывает количество прикреплённых документов
-        </p>
-      </div>
-
-      {/* Проверка файлов */}
-      <div className="bg-[#1e1e1e] rounded-2xl p-5 mb-7 border border-gray-700 text-center">
-        <p className="text-lg font-bold text-blue-300 mb-3">
-          Где посмотреть загруженные файлы?
-        </p>
-        <p className="mb-4">Рейс → кнопка «Файлы»</p>
-        <img
-          src={images[3]}
-          alt="Список файлов"
-          className="w-full max-w-sm mx-auto rounded-lg border border-gray-600 cursor-pointer"
-          onClick={() => setEnlargedImage(images[3])}
-        />
-      </div>
-
-      {/* Обязательные документы */}
-      <div className="bg-yellow-900/40 rounded-2xl p-6 border-2 border-yellow-600 text-center">
-        <p className="text-xl font-bold text-yellow-300 mb-4">
-          В каждом завершённом заказе обязательно должны быть:
-        </p>
-        <div className="space-y-3 text-lg">
-          <p>CMR</p>
-          <p>Карта простоя</p>
-          <p>Чеки расходов</p>
-        </div>
-      </div>
-
-      {/* Кнопка назад */}
-      <Link
-        to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-bold py-4 rounded-2xl text-center shadow-xl transition-all z-10"
-      >
-        ← Вернуться к инструкциям
-      </Link>
-
-      {/* Увеличенное изображение */}
+      {/* МОДАЛЬНОЕ ОКНО */}
       {enlargedImage && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setEnlargedImage(null)}
         >
-          <img
-            src={enlargedImage}
-            alt="Увеличенное фото"
-            className="max-w-full max-h-full rounded-xl"
-          />
-          <button
-            onClick={() => setEnlargedImage(null)}
-            className="absolute top-5 right-5 text-white text-5xl opacity-80 hover:opacity-100"
-          >
-            ×
-          </button>
+          <div className="relative max-w-full max-h-full">
+            <img
+              src={enlargedImage}
+              alt="Увеличенное изображение"
+              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            />
+            <button
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-gray-800/50 rounded-full"
+              onClick={() => setEnlargedImage(null)}
+            >
+              <X size={32} />
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
+
+// --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ ---
+
+interface StepProps {
+  number: number;
+  title: string;
+  icon: React.ReactNode;
+  headerColor: string;
+  content: React.ReactNode;
+}
+
+const StepSection: React.FC<StepProps> = ({ number, title, icon, headerColor, content }) => (
+  <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1e1e1e] overflow-hidden shadow-sm">
+    <div className="flex items-center gap-3 p-3 border-b border-gray-100 dark:border-gray-800">
+      <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md ${headerColor}`}>
+        {icon}
+      </div>
+      <h3 className="font-bold text-gray-900 dark:text-white flex-1">
+        Шаг {number}: <span className="font-normal opacity-80">{title}</span>
+      </h3>
+    </div>
+    <div className="p-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      {content}
+    </div>
+  </div>
+);
+
+const ImageThumbnail = ({ src, onClick }: { src: string, onClick: () => void }) => (
+  <div 
+    className="relative group cursor-pointer rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm mt-2"
+    onClick={onClick}
+  >
+    <img src={src} alt="Скриншот" className="w-full object-cover max-h-60" />
+    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+      <div className="bg-black/50 text-white px-3 py-1 rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 backdrop-blur-sm">
+        <ZoomIn size={12} /> Увеличить
+      </div>
+    </div>
+  </div>
+);
 
 export default AddReceiptPage;

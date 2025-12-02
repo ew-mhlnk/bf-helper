@@ -1,108 +1,164 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { QrCode, ScanLine, Keyboard, MessageCircle, AlertCircle, ZoomIn, X } from 'lucide-react';
+import Layout from '../components/Layout';
 
 const LoginPasswordPage: React.FC = () => {
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
 
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4 pb-24">
-      {/* Заголовок */}
-      <h1 className="text-2xl font-bold text-center mb-8 mt-4 leading-tight">
-        Как войти в аккаунт
-      </h1>
+    <Layout title="Вход в аккаунт">
+      <div className="space-y-6 pb-8">
 
-      {/* Три способа входа */}
-      <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-gray-700">
-        <h2 className="text-xl font-bold text-center mb-6 text-blue-300">
-          Три способа входа:
-        </h2>
+        {/* Заголовок секции */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white px-1 mb-4">
+            Три способа входа:
+          </h2>
+          
+          <div className="space-y-3">
+            {/* Способ 1 */}
+            <MethodCard 
+              number={1}
+              icon={<QrCode size={24} className="text-purple-600 dark:text-purple-400" />}
+              bgColor="bg-purple-50 dark:bg-purple-900/20"
+              borderColor="border-purple-100 dark:border-purple-800"
+              text={
+                <span>
+                  Наведите камеру на <span className="font-bold text-gray-900 dark:text-white">QR-код путевого листа</span>.
+                </span>
+              }
+            />
 
-        <div className="space-y-6">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
-              1
-            </div>
-            <p className="pt-2 text-lg">
-              Наведите камеру приложения на <strong>QR-код путевого листа</strong>
-            </p>
-          </div>
+            {/* Способ 2 */}
+            <MethodCard 
+              number={2}
+              icon={<ScanLine size={24} className="text-blue-600 dark:text-blue-400" />}
+              bgColor="bg-blue-50 dark:bg-blue-900/20"
+              borderColor="border-blue-100 dark:border-blue-800"
+              text={
+                <span>
+                   Наведите камеру на <span className="font-bold text-gray-900 dark:text-white">QR-код пропуска</span>.
+                </span>
+              }
+            />
 
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
-              2
-            </div>
-            <p className="pt-2 text-lg">
-              Наведите камеру на <strong>QR-код пропуска</strong>
-            </p>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-pink-600 to-red-600 rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
-              3
-            </div>
-            <p className="pt-2 text-lg">
-              Введите <strong>логин и пароль</strong> вручную в соответствующие поля
-            </p>
+            {/* Способ 3 */}
+            <MethodCard 
+              number={3}
+              icon={<Keyboard size={24} className="text-orange-600 dark:text-orange-400" />}
+              bgColor="bg-orange-50 dark:bg-orange-900/20"
+              borderColor="border-orange-100 dark:border-orange-800"
+              text={
+                <span>
+                  Введите <span className="font-bold text-gray-900 dark:text-white">логин и пароль</span> вручную.
+                </span>
+              }
+            />
           </div>
         </div>
-      </div>
 
-      {/* Изображение */}
-      <div className="flex flex-col items-center mb-8">
-        <p className="text-gray-400 mb-4 text-center">Нажмите на фото для увеличения</p>
-        <img
-          src="/photo/2.png"
-          alt="Способы входа в приложение"
-          className="w-80 max-w-full h-auto rounded-2xl shadow-2xl border-2 border-gray-600 cursor-pointer transition-all duration-300 hover:scale-105 hover:border-blue-500"
-          onClick={() => setIsImageEnlarged(true)}
-        />
-      </div>
-
-      {/* Важное предупреждение */}
-      <div className="bg-red-900/40 border-2 border-red-500 rounded-2xl p-6 mb-8">
-        <p className="text-lg font-bold text-red-300 mb-3 text-center">
-          Если QR-коды не считываются или вы не знаете логин/пароль
-        </p>
-        <p className="text-center">
-          <span className="block text-sm opacity-90 mb-2">Обратитесь к Евгении:</span>
-          <a
-            href="tel:+375292468990"
-            className="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors underline decoration-2 underline-offset-4"
+        {/* Блок с фото */}
+        <div className="mt-4">
+          <p className="text-center text-sm text-gray-500 mb-2 flex items-center justify-center gap-2">
+            <ZoomIn size={16} /> Нажмите на фото для увеличения
+          </p>
+          <div 
+            className="relative group cursor-pointer rounded-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md transition-transform active:scale-[0.98]"
+            onClick={() => setIsImageEnlarged(true)}
           >
-            +375 29 246-89-90
-          </a>
-        </p>
+            <img
+              src="/photo/2.png"
+              alt="Способы входа"
+              className="w-full object-cover"
+            />
+            {/* Эффект затемнения при наведении */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+          </div>
+        </div>
+
+        {/* Блок "Нужна помощь" (Контакты) */}
+        <div className="p-5 rounded-2xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
+          <div className="flex items-start gap-3 mb-3">
+            <div className="p-2 bg-red-100 dark:bg-red-900/40 rounded-full text-red-600 dark:text-red-400">
+              <AlertCircle size={24} />
+            </div>
+            <div>
+              <h3 className="font-bold text-red-700 dark:text-red-300 text-lg">
+                Не получается войти?
+              </h3>
+              <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">
+                Если QR-коды не считываются или вы забыли данные для входа.
+              </p>
+            </div>
+          </div>
+          
+          <div className="mt-4 pt-4 border-t border-red-200 dark:border-red-800/50">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Напишите или позвоните Евгении:</p>
+            <a 
+              href="https://wa.me/375292468990"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold transition-colors shadow-sm active:scale-[0.98]"
+            >
+              <MessageCircle size={20} />
+              WhatsApp: +375 29 246-89-90
+            </a>
+          </div>
+        </div>
+
       </div>
 
-      {/* Кнопка назад — фиксированная внизу */}
-      <Link
-        to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-95 text-white font-bold text-lg py-5 px-8 rounded-3xl text-center shadow-2xl transition-all duration-200"
-      >
-        ← Вернуться к инструкциям
-      </Link>
-
-      {/* Увеличенное изображение */}
+      {/* МОДАЛЬНОЕ ОКНО */}
       {isImageEnlarged && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setIsImageEnlarged(false)}
         >
-          <img
-            src="/photo/2.png"
-            alt="Увеличенное изображение"
-            className="max-w-full max-h-full rounded-2xl shadow-2xl"
-          />
-          <button
-            onClick={() => setIsImageEnlarged(false)}
-            className="absolute top-6 right-6 text-white text-5xl font-light opacity-80 hover:opacity-100 transition"
-          >
-            ×
-          </button>
+          <div className="relative max-w-full max-h-full">
+            <img
+              src="/photo/2.png"
+              alt="Увеличенное изображение"
+              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            />
+            <button
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-gray-800/50 rounded-full"
+              onClick={() => setIsImageEnlarged(false)}
+            >
+              <X size={32} />
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
+
+// Компонент карточки способа
+interface MethodProps {
+  number: number;
+  icon: React.ReactNode;
+  text: React.ReactNode;
+  bgColor: string;
+  borderColor: string;
+}
+
+const MethodCard: React.FC<MethodProps> = ({ number, icon, text, bgColor, borderColor }) => (
+  <div className={`flex items-center gap-4 p-4 rounded-xl border shadow-sm ${bgColor} ${borderColor}`}>
+    {/* Номер */}
+    <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white font-bold text-sm shadow-sm">
+      {number}
+    </div>
+    
+    {/* Иконка */}
+    <div className="shrink-0">
+      {icon}
+    </div>
+
+    {/* Текст */}
+    <div className="text-gray-700 dark:text-gray-300 text-base leading-snug">
+      {text}
+    </div>
+  </div>
+);
 
 export default LoginPasswordPage;

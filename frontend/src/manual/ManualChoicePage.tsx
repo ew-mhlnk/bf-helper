@@ -1,55 +1,87 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt } from 'lucide-react'; // Импортируем иконки
+import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
+  const navigate = useNavigate();
+
+  // Список инструкций с иконками и цветами
+  const manuals = [
+    { 
+      path: '/manual/start-work', 
+      title: 'Начало работы', 
+      desc: 'Проверка аккаунта перед выездом',
+      icon: <Play size={24} />,
+      color: 'text-green-500 bg-green-100 dark:bg-green-900/30'
+    },
+    { 
+      path: '/manual/login-password', 
+      title: 'Логин и пароль', 
+      desc: 'Как войти, если QR не работает',
+      icon: <Key size={24} />,
+      color: 'text-orange-500 bg-orange-100 dark:bg-orange-900/30'
+    },
+    { 
+      path: '/manual/open-trip', 
+      title: 'Как открыть рейс', 
+      desc: 'Пошаговая инструкция',
+      icon: <FilePlus size={24} />,
+      color: 'text-blue-500 bg-blue-100 dark:bg-blue-900/30'
+    },
+    { 
+      path: '/manual/close-trip', 
+      title: 'Как закрыть рейс', 
+      desc: 'Правильное завершение',
+      icon: <CheckCircle size={24} />,
+      color: 'text-red-500 bg-red-100 dark:bg-red-900/30'
+    },
+    { 
+      path: '/manual/add-cmr', 
+      title: 'Как добавить CMR', 
+      desc: 'Загрузка документов',
+      icon: <FileText size={24} />,
+      color: 'text-purple-500 bg-purple-100 dark:bg-purple-900/30'
+    },
+    { 
+      path: '/manual/add-receipt', 
+      title: 'Как добавить чек', 
+      desc: 'Расходы и топливо',
+      icon: <Receipt size={24} />,
+      color: 'text-teal-500 bg-teal-100 dark:bg-teal-900/30'
+    },
+  ];
+
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">Инструкции к TruckOffice</h1>
-
-      <div className="space-y-4 max-w-md mx-auto">
-        <Link
-          to="/manual/start-work"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Начало работы
-        </Link>
-
-        <Link
-          to="/manual/login-password"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Логин и пароль
-        </Link>
-
-        <Link
-          to="/manual/open-trip"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Как открыть рейс?
-        </Link>
-
-        <Link
-          to="/manual/close-trip"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Как закрыть рейс?
-        </Link>
-
-        <Link
-          to="/manual/add-cmr"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Как добавить CMR
-        </Link>
-
-        <Link
-          to="/manual/add-receipt"
-          className="bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-medium py-4 px-6 rounded-xl block text-center transition-all duration-200 shadow-lg"
-        >
-          Как добавить чек
-        </Link>
+    <Layout title="Инструкции">
+      <div className="grid gap-3 mt-2">
+        {manuals.map((item, index) => (
+          <div
+            key={index}
+            onClick={() => navigate(item.path)}
+            className="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all 
+                       bg-white dark:bg-[#1e1e1e] 
+                       border border-gray-200 dark:border-gray-800 
+                       shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-[0.98]"
+          >
+            {/* Иконка с цветным фоном */}
+            <div className={`p-3 rounded-full ${item.color}`}>
+              {item.icon}
+            </div>
+            
+            {/* Текст */}
+            <div>
+              <h3 className="font-bold text-lg text-gray-900 dark:text-white">
+                {item.title}
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </Layout>
   );
 };
 

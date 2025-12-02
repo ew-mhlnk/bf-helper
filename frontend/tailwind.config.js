@@ -1,7 +1,8 @@
 module.exports = {
   content: [
-    './src/**/*.{js,jsx,ts,tsx}', // Указываем, где искать React-компоненты
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
+  darkMode: 'class', // <--- ВОТ ЭТА СТРОЧКА ВАЖНА
   theme: {
     extend: {},
   },

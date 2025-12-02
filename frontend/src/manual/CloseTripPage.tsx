@@ -1,119 +1,162 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { LogOut, FileText, Camera, AlertTriangle, Clock, CheckCircle, ZoomIn, X } from 'lucide-react';
+import Layout from '../components/Layout';
 
 const CloseTripPage: React.FC = () => {
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4 pb-32">
+    <Layout title="Завершение рейса">
+      <div className="space-y-6 pb-8">
 
-      {/* Заголовок */}
-      <h1 className="text-3xl font-bold text-center mb-6 mt-4">
-        Завершение рейса
-      </h1>
-
-      {/* Начало */}
-      <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-gray-700">
-        <div className="space-y-5 text-lg">
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
-              1
+        {/* ШАГ 1: Кнопка завершения */}
+        <StepSection 
+          number={1}
+          title="Находим кнопку"
+          icon={<LogOut size={20} className="text-white pl-0.5" />}
+          headerColor="bg-blue-600"
+          content={
+            <div className="space-y-3">
+              <p>
+                Зайдите в текущий рейс и нажмите кнопку <span className="font-bold text-blue-600 dark:text-blue-400">«Завершить»</span>.
+              </p>
+              <ImageThumbnail src="/photo/16.png" onClick={() => setEnlargedImage('/photo/16.png')} />
             </div>
-            <p>Зайдите в раздел <strong>«Рейсы»</strong></p>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
-              2
-            </div>
-            <p>Откройте текущий рейс → нажмите кнопку <strong>«Завершить»</strong></p>
-          </div>
-        </div>
-
-        <img
-          src="/photo/16.png"
-          alt="Кнопка завершения рейса"
-          className="w-full max-w-md mx-auto rounded-xl shadow-2xl border-2 border-gray-600 cursor-pointer hover:border-blue-500 transition-all mt-6"
-          onClick={() => setEnlargedImage('/photo/16.png')}
+          }
         />
-      </div>
 
-      {/* Форма заполнения */}
-      <div className="bg-gradient-to-br from-red-900/40 to-orange-900/40 rounded-2xl p-6 mb-8 border-2 border-red-600">
-        <h2 className="text-xl font-bold text-red-300 text-center mb-5">
-          Заполняйте форму строго сверху вниз, ничего не пропуская
-        </h2>
+        {/* ШАГ 2: Заполнение формы (Самое важное) */}
+        <StepSection 
+          number={2}
+          title="Заполнение отчета"
+          icon={<FileText size={20} className="text-white" />}
+          headerColor="bg-purple-600"
+          content={
+            <div className="space-y-4">
+              {/* Правило */}
+              <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 text-purple-800 dark:text-purple-300 text-sm font-semibold text-center">
+                ⬇️ Заполняйте строго сверху вниз, ничего не пропуская!
+              </div>
 
-        <div className="space-y-6 text-lg">
-          {/* Показания приборов */}
-          <div className="bg-gray-800/60 rounded-xl p-5 border border-gray-600">
-            <p className="font-bold text-blue-300 mb-2">Показания приборов</p>
-            <p>• Внесите цифры</p>
-            <p className="text-red-400 font-semibold mt-2">
-              • Обязательно прикрепите фото одометра и рефрижератора (Без этих фото закрыть рейс нельзя)
+              <div className="space-y-4">
+                {/* Пункт 1 */}
+                <div className="flex gap-3">
+                  <div className="shrink-0 mt-1 text-gray-400"><FileText size={18} /></div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-white">1. Показания приборов</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Внесите цифры пробега.</p>
+                  </div>
+                </div>
+
+                {/* Пункт 2 (Фото) */}
+                <div className="flex gap-3">
+                  <div className="shrink-0 mt-1 text-red-500"><Camera size={18} /></div>
+                  <div>
+                    <h4 className="font-bold text-red-600 dark:text-red-400">2. Фото (Обязательно!)</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Прикрепите фото одометра и рефрижератора. Без них рейс закрыть нельзя.</p>
+                  </div>
+                </div>
+
+                {/* Пункт 3 */}
+                <div className="flex gap-3">
+                  <div className="shrink-0 mt-1 text-gray-400"><FileText size={18} /></div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-white">3. Топливо и Замечания</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Укажите остатки в баках и технические проблемы (если есть).</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        />
+
+        {/* ПРЕДУПРЕЖДЕНИЕ: 6 секунд */}
+        <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 flex gap-3 items-start">
+          <div className="text-amber-600 dark:text-amber-400 shrink-0 mt-1">
+            <Clock size={24} />
+          </div>
+          <div>
+            <h3 className="font-bold text-amber-700 dark:text-amber-400 text-lg">
+              Осторожно!
+            </h3>
+            <p className="text-amber-600/90 dark:text-amber-300/90 text-sm mt-1 leading-relaxed">
+              После нажатия «Завершить» у вас будет всего <span className="font-bold">6 секунд</span> на отмену, если вы ошиблись.
             </p>
           </div>
-
-          {/* Остаток топлива */}
-          <div className="bg-gray-800/60 rounded-xl p-5 border border-gray-600">
-            <p className="font-bold text-blue-300 mb-2">Остаток топлива</p>
-            <p>• Укажите остатки в тягаче и прицепе (поля обязательные)</p>
-          </div>
-
-          {/* Замечания */}
-          <div className="bg-gray-800/60 rounded-xl p-5 border border-gray-600">
-            <p className="font-bold text-blue-300 mb-2">Замечания по техсостоянию</p>
-            <p>• Если есть проблемы — напишите их здесь</p>
-          </div>
         </div>
 
-        <p className="text-center mt-6 font-bold text-xl text-green-300">
-          Всё заполнено и фото на месте → нажмите «Завершить рейс»
-        </p>
+        {/* ФИНАЛ */}
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 shadow-lg text-white text-center">
+          <CheckCircle size={48} className="mx-auto mb-3 opacity-90" />
+          <h3 className="text-xl font-bold">Готово!</h3>
+          <p className="opacity-90">Рейс успешно закрыт.</p>
+        </div>
+
       </div>
 
-      {/* 6 секунд на отмену */}
-      <div className="bg-yellow-900/40 border-2 border-yellow-600 rounded-2xl p-6 mb-8 text-center">
-        <p className="text-xl font-bold text-yellow-300">
-          После нажатия будет 6 секунд на отмену, если вдруг ошиблись
-        </p>
-      </div>
-
-      {/* Готово */}
-      <div className="bg-gradient-to-r from-green-900/60 to-emerald-900/60 rounded-2xl p-8 text-center border-4 border-green-500">
-        <p className="text-3xl font-bold text-green-300">
-          Готово! Рейс закрыт
-        </p>
-      </div>
-
-      {/* Кнопка назад — фиксированная */}
-      <Link
-        to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-lg py-5 rounded-3xl text-center shadow-2xl transition-all duration-200 z-10"
-      >
-        ← Вернуться к инструкциям
-      </Link>
-
-      {/* Увеличенное изображение */}
+      {/* МОДАЛЬНОЕ ОКНО */}
       {enlargedImage && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setEnlargedImage(null)}
         >
-          <img
-            src={enlargedImage}
-            alt="Увеличенное фото"
-            className="max-w-full max-h-full rounded-xl shadow-2xl"
-          />
-          <button
-            onClick={() => setEnlargedImage(null)}
-            className="absolute top-5 right-5 text-white text-5xl opacity-80 hover:opacity-100"
-          >
-            ×
-          </button>
+          <div className="relative max-w-full max-h-full">
+            <img
+              src={enlargedImage}
+              alt="Увеличенное изображение"
+              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            />
+            <button
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-gray-800/50 rounded-full"
+              onClick={() => setEnlargedImage(null)}
+            >
+              <X size={32} />
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
+
+// --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ (Те же, что и в OpenTripPage, для единства стиля) ---
+
+interface StepProps {
+  number: number;
+  title: string;
+  icon: React.ReactNode;
+  headerColor: string;
+  content: React.ReactNode;
+}
+
+const StepSection: React.FC<StepProps> = ({ number, title, icon, headerColor, content }) => (
+  <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1e1e1e] overflow-hidden shadow-sm">
+    <div className="flex items-center gap-3 p-3 border-b border-gray-100 dark:border-gray-800">
+      <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md ${headerColor}`}>
+        {icon}
+      </div>
+      <h3 className="font-bold text-gray-900 dark:text-white flex-1">
+        Шаг {number}: <span className="font-normal opacity-80">{title}</span>
+      </h3>
+    </div>
+    <div className="p-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      {content}
+    </div>
+  </div>
+);
+
+const ImageThumbnail = ({ src, onClick }: { src: string, onClick: () => void }) => (
+  <div 
+    className="relative group cursor-pointer rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm mt-2"
+    onClick={onClick}
+  >
+    <img src={src} alt="Скриншот" className="w-full object-cover max-h-60" />
+    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+      <div className="bg-black/50 text-white px-3 py-1 rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 backdrop-blur-sm">
+        <ZoomIn size={12} /> Увеличить
+      </div>
+    </div>
+  </div>
+);
 
 export default CloseTripPage;

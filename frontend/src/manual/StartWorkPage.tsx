@@ -1,126 +1,158 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Menu, User, CheckCircle, LogOut, AlertTriangle, X, ZoomIn } from 'lucide-react';
+import Layout from '../components/Layout';
 
 const StartWorkPage: React.FC = () => {
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
 
   return (
-    <div className="bg-[#141414] min-h-screen text-white p-4 pb-24">
-      {/* Заголовок */}
-      <h1 className="text-2xl font-bold text-center mb-6 mt-4">
-        Проверка аккаунта перед выездом
-      </h1>
-
-      {/* Важное предупреждение */}
-      <div className="bg-red-900/30 border border-red-600 rounded-xl p-5 mb-6">
-        <p className="text-lg font-bold text-red-400 mb-2">
-          Обязательно убедитесь, что в приложении ваш аккаунт!
-        </p>
-        <p className="text-md leading-relaxed">
-          Особенно важно, если машина <span className="font-semibold">сменная</span> или за вами{' '}
-          <span className="font-semibold">не закреплён тягач</span>.
-        </p>
-      </div>
-
-      {/* Критически важное */}
-      <div className="bg-orange-900/30 border border-orange-600 rounded-xl p-5 mb-6">
-        <p className="text-lg font-bold text-orange-300">
-          Перед рейсом всегда проверяйте аккаунт
-        </p>
-        <p className="mt-2 leading-relaxed">
-          В каждом тягаче стоит телефон с приложением.{' '}
-          <span className="font-bold text-white">Не выезжайте</span>, пока не увидите свои данные!
-        </p>
-      </div>
-
-      {/* Как проверить — шаги */}
-      <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-gray-700">
-        <h2 className="text-xl font-bold mb-5 text-center text-blue-300">
-          Как проверить аккаунт:
-        </h2>
-
-        <div className="space-y-5">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-lg">
-              1
-            </div>
-            <p className="pt-2">Нажмите три полоски ☰ в правом верхнем углу</p>
+    <Layout title="Проверка аккаунта">
+      <div className="space-y-6 pb-8">
+        
+        {/* БЛОК 1: Критическое предупреждение */}
+        {/* Используем стиль "Callout" - блок внимания */}
+        <div className="p-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 flex gap-3 items-start">
+          <div className="text-red-600 dark:text-red-400 shrink-0 mt-1">
+            <AlertTriangle size={24} />
           </div>
-
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-lg">
-              2
-            </div>
-            <p className="pt-2">Посмотрите имя и фото в открывшемся меню</p>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-green-600 rounded-full flex items-center justify-center font-bold text-lg">
-              3
-            </div>
-            <p className="pt-2">
-              Если это <span className="font-bold text-green-400">вы</span> — тапните в пустое место и работайте дальше
-            </p>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-lg">
-              4
-            </div>
-            <p className="pt-2">
-              Если <span className="font-bold text-red-400">чужой аккаунт</span> — нажмите «Выйти» и войдите под своими данными
+          <div>
+            <h3 className="font-bold text-red-700 dark:text-red-400 text-lg">
+              Обязательно проверьте аккаунт!
+            </h3>
+            <p className="text-red-600/90 dark:text-red-300/90 text-sm mt-1 leading-relaxed">
+              В каждом тягаче стоит телефон. Не выезжайте, если в приложении открыт чужой профиль.
             </p>
           </div>
         </div>
+
+        {/* БЛОК 2: Инструкция по шагам */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white px-1">
+            Как проверить:
+          </h2>
+
+          {/* Шаг 1 */}
+          <StepCard 
+            number={1} 
+            icon={<Menu className="text-blue-500" />}
+            text={<span>Нажмите <span className="font-bold">три полоски ☰</span> в правом верхнем углу.</span>}
+          />
+
+          {/* Шаг 2 */}
+          <StepCard 
+            number={2} 
+            icon={<User className="text-blue-500" />}
+            text="Посмотрите имя и фото в открывшемся меню."
+          />
+
+          {/* Шаг 3 (Вариант ОК) */}
+          <StepCard 
+            number={3} 
+            icon={<CheckCircle className="text-green-500" />}
+            borderColor="border-green-200 dark:border-green-900"
+            bgColor="bg-green-50/50 dark:bg-green-900/10"
+            text={<span>Если это <span className="font-bold text-green-600 dark:text-green-400">вы</span> — нажмите на экран и работайте.</span>}
+          />
+
+          {/* Шаг 4 (Вариант Ошибка) */}
+          <StepCard 
+            number={4} 
+            icon={<LogOut className="text-red-500" />}
+            borderColor="border-red-200 dark:border-red-900"
+            bgColor="bg-red-50/50 dark:bg-red-900/10"
+            text={<span>Если <span className="font-bold text-red-600 dark:text-red-400">чужой аккаунт</span> — нажмите «Выйти» и войдите под своими данными.</span>}
+          />
+        </div>
+
+        {/* БЛОК 3: Фото-подсказка */}
+        <div className="mt-6">
+          <p className="text-center text-sm text-gray-500 mb-2 flex items-center justify-center gap-2">
+            <ZoomIn size={16} /> Нажмите на фото для увеличения
+          </p>
+          <div 
+            className="relative group cursor-pointer rounded-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md"
+            onClick={() => setIsImageEnlarged(true)}
+          >
+            <img
+              src="/photo/1.png"
+              alt="Скриншот меню"
+              className="w-full object-cover"
+            />
+            {/* Оверлей при наведении */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+               {/* Можно добавить иконку лупы по центру, если хочется */}
+            </div>
+          </div>
+        </div>
+
+        {/* БЛОК 4: Итог */}
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 shadow-lg text-center text-white">
+          <CheckCircle size={48} className="mx-auto mb-2 opacity-90" />
+          <h3 className="text-xl font-bold">Готово!</h3>
+          <p className="opacity-90">Теперь можно ехать.</p>
+        </div>
+
       </div>
 
-      {/* Изображение с увеличением */}
-      <div className="flex flex-col items-center mb-8">
-        <p className="text-gray-400 mb-3 text-center">Нажмите на фото для увеличения</p>
-        <img
-          src="/photo/1.png"
-          alt="Проверка аккаунта в приложении"
-          className="w-72 max-w-full h-auto rounded-xl shadow-2xl border-2 border-gray-600 cursor-pointer transition-transform hover:scale-105"
-          onClick={() => setIsImageEnlarged(true)}
-        />
-      </div>
-
-      {/* Успешное завершение */}
-      <div className="text-center py-6 bg-gradient-to-r from-green-900/40 to-emerald-900/40 rounded-2xl border border-green-600">
-        <p className="text-2xl font-bold text-green-300">
-          Готово! Теперь можно ехать!
-        </p>
-      </div>
-
-      {/* Кнопка назад */}
-      <Link
-        to="/manual"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-bold py-4 px-8 rounded-2xl text-center shadow-lg transition-all duration-200"
-      >
-        ← Вернуться к инструкциям
-      </Link>
-
-      {/* Модальное окно для фото */}
+      {/* МОДАЛЬНОЕ ОКНО ДЛЯ ФОТО */}
       {isImageEnlarged && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setIsImageEnlarged(false)}
         >
-          <img
-            src="/photo/1.png"
-            alt="Увеличенное изображение"
-            className="max-w-full max-h-full rounded-xl shadow-2xl"
-          />
-          <button
-            className="absolute top-6 right-6 text-white text-4xl font-light opacity-80 hover:opacity-100"
-            onClick={() => setIsImageEnlarged(false)}
-          >
-            ×
-          </button>
+          <div className="relative max-w-full max-h-full">
+            <img
+              src="/photo/1.png"
+              alt="Увеличенное изображение"
+              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            />
+            <button
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-gray-800/50 rounded-full"
+              onClick={() => setIsImageEnlarged(false)}
+            >
+              <X size={32} />
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
+
+// Вспомогательный компонент для карточки шага
+interface StepProps {
+  number: number;
+  text: React.ReactNode;
+  icon: React.ReactNode;
+  borderColor?: string;
+  bgColor?: string;
+}
+
+const StepCard: React.FC<StepProps> = ({ 
+  number, 
+  text, 
+  icon, 
+  borderColor = "border-gray-100 dark:border-gray-800",
+  bgColor = "bg-white dark:bg-[#1e1e1e]" 
+}) => (
+  <div className={`flex items-center gap-4 p-4 rounded-xl border shadow-sm ${borderColor} ${bgColor}`}>
+    {/* Номер шага */}
+    <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold text-lg shadow-inner">
+      {number}
+    </div>
+    
+    {/* Текст и иконка */}
+    <div className="flex-1">
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-gray-700 dark:text-gray-200 text-base leading-snug">
+          {text}
+        </p>
+        <div className="shrink-0 mt-1 opacity-80">
+          {icon}
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export default StartWorkPage;
