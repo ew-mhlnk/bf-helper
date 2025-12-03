@@ -9,18 +9,31 @@ const DirectionChoicePage: React.FC = () => {
 
   const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
 
-  // Список направлений (данные)
-  const routes = [
+  // Полный список всех возможных маршрутов
+  const allRoutes = [
     { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
     { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
     { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
     { id: 'krasnodar', name: 'Краснодар', desc: 'Южное направление' },
   ];
 
+  // Фильтруем маршруты в зависимости от тягача
+  const visibleRoutes = allRoutes.filter(route => {
+    // Для Белорусского показываем ВСЁ
+    if (truckType === 'belarus') {
+      return true;
+    }
+    // Для Казахского убираем Европу и Краснодар
+    if (truckType === 'kazakh') {
+      return route.id !== 'krasnodar' && route.id !== 'european-trip';
+    }
+    return false;
+  });
+
   return (
     <Layout title={title}>
       <div className="space-y-3 mt-2">
-        {routes.map((route) => (
+        {visibleRoutes.map((route) => (
           <div
             key={route.id}
             onClick={() => navigate(`/${truckType}/${route.id}`)}
@@ -38,6 +51,12 @@ const DirectionChoicePage: React.FC = () => {
             <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
           </div>
         ))}
+
+        {visibleRoutes.length === 0 && (
+          <div className="text-center text-gray-500 p-4">
+            Нет доступных маршрутов
+          </div>
+        )}
       </div>
     </Layout>
   );

@@ -9,27 +9,28 @@ const AsianTripPage: React.FC = () => {
 
   return (
     <Layout title="Азия (BY-тягач)">
-      {/* ПЕРЕКЛЮЧАТЕЛЬ ВКАДОК (Туда / Обратно) */}
-      <div className="flex p-1 bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 sticky top-[60px] z-40 shadow-sm mx-[-8px]">
+      
+      {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК (Контрастный) */}
+      <div className="flex p-1 bg-gray-200 dark:bg-gray-800 rounded-xl mb-4 sticky top-[60px] z-40 shadow-sm mx-[-8px]">
         <button
           onClick={() => setActiveTab('there')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'there'
-              ? 'bg-white dark:bg-[#2a2a2a] text-blue-600 dark:text-blue-400 shadow-md transform scale-[1.02]'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700'
+              ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' // Активная: Синяя
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
           }`}
         >
-          Туда <ArrowRight size={16} />
+          Туда <ArrowRight size={18} />
         </button>
         <button
           onClick={() => setActiveTab('back')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'back'
-              ? 'bg-white dark:bg-[#2a2a2a] text-green-600 dark:text-green-400 shadow-md transform scale-[1.02]'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700'
+              ? 'bg-green-600 text-white shadow-md transform scale-[1.02]' // Активная: Зеленая
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
           }`}
         >
-          <ArrowLeft size={16} /> Обратно
+          <ArrowLeft size={18} /> Обратно
         </button>
       </div>
 
@@ -86,8 +87,10 @@ const AsianTripPage: React.FC = () => {
                   <div className="space-y-3">
                     <div>
                       <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Яйсан</div>
+                      {/* Добавил координаты */}
                       <StationCard 
                         title="Башнефть / Роснефть"
+                        coords="51.172763, 55.009327" 
                         payment="Карта Роснефть"
                         volume="До полных баков"
                       />
@@ -161,7 +164,7 @@ const AsianTripPage: React.FC = () => {
                 <StationCard 
                   title="Газпром"
                   payment="Карта Газпром"
-                  volume="Заправиться до..."
+                  volume="Заправиться до М5 или М7" 
                 />
               </div>
             </section>
@@ -176,7 +179,7 @@ const AsianTripPage: React.FC = () => {
                     title="Таиф-НК"
                     coords="54.476888, 53.324735"
                     payment="E1 Card"
-                    volume="До РБ (вход 100 л.)"
+                    volume="Заправка до РБ (Вход в РБ = 100 л.)" 
                   />
                 </RouteGroup>
 
@@ -185,7 +188,7 @@ const AsianTripPage: React.FC = () => {
                     title="Таиф-НК"
                     coords="55.704133, 53.035245"
                     payment="E1 Card"
-                    volume="До РБ (вход 100 л.)"
+                    volume="Заправка до РБ (Вход в РБ = 100 л.)"
                   />
                 </RouteGroup>
               </div>
@@ -214,7 +217,7 @@ const AsianTripPage: React.FC = () => {
   );
 };
 
-// --- КОМПОНЕНТЫ (Compact version) ---
+// --- КОМПОНЕНТЫ ---
 
 const SectionHeader = ({ title, color }: { title: string, color: string }) => (
   <h2 className={`text-base font-bold mb-2 flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-1 ${color}`}>
@@ -259,34 +262,39 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
           <h3 className="text-base font-bold text-gray-900 dark:text-white truncate leading-tight">{title}</h3>
         </div>
         
-        {/* Кнопки действий */}
+        {/* Кнопки действий (УВЕЛИЧЕННЫЕ) */}
         {coords && (
-          <div className="flex gap-1 shrink-0">
+          <div className="flex gap-1.5 shrink-0">
+            {/* Google */}
             <a 
               href={`https://www.google.com/maps/search/?api=1&query=${coords}`}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 rounded bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-100 transition-colors"
+              className="p-2 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-100 transition-colors"
             >
-              <ExternalLink size={14} />
+              <ExternalLink size={18} />
             </a>
+            
+            {/* Yandex */}
             <a 
               href={`https://yandex.ru/maps/?text=${coords}`}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 rounded bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 hover:bg-red-100 transition-colors text-[10px] font-bold w-[26px] flex items-center justify-center"
+              className="p-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 hover:bg-red-100 transition-colors text-xs font-bold w-[34px] flex items-center justify-center"
             >
               Ya
             </a>
+
+            {/* Copy */}
             <button
               onClick={handleCopy}
-              className={`p-1.5 rounded transition-colors ${
+              className={`p-2 rounded-lg transition-colors ${
                 copied 
                   ? 'bg-green-100 text-green-600' 
                   : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
               }`}
             >
-              {copied ? <Check size={14} /> : <Copy size={14} />}
+              {copied ? <Check size={18} /> : <Copy size={18} />}
             </button>
           </div>
         )}
