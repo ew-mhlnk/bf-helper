@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, ChevronLeft } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,14 +11,27 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, title, showBack = true }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams(); // Хук для чтения ?theme=...
   
   // Состояние темы (по умолчанию берем из localStorage или темную)
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
+    // Если ничего не сохранено, по умолчанию темная
     return saved ? saved === 'dark' : true;
   });
 
-  // При изменении isDark меняем класс на <html> и сохраняем
+  // 1. Следим за URL параметрами (синхронизация с Android-приложением)
+  useEffect(() => {
+    const themeParam = searchParams.get('theme'); // Читаем параметр ?theme=
+    
+    if (themeParam === 'dark') {
+      setIsDark(true);
+    } else if (themeParam === 'light') {
+      setIsDark(false);
+    }
+  }, [searchParams]);
+
+  // 2. При изменении isDark меняем класс на <html> и сохраняем
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -51,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, showBack = true }) => 
           </h1>
         </div>
 
-        {/* Переключатель темы */}
+        {/* Переключатель темы (вручную тоже можно) */}
         <button
           onClick={() => setIsDark(!isDark)}
           className={`p-2 rounded-full transition-all duration-300 ${isDark ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' : 'bg-gray-200 text-blue-600 hover:bg-gray-300'}`}
