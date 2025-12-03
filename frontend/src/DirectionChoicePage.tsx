@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MapPin, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight, AlertTriangle } from 'lucide-react';
 import Layout from './components/Layout';
 
 const DirectionChoicePage: React.FC = () => {
@@ -19,12 +19,11 @@ const DirectionChoicePage: React.FC = () => {
 
   // Фильтруем маршруты в зависимости от тягача
   const visibleRoutes = allRoutes.filter(route => {
-    // Для Белорусского показываем ВСЁ
     if (truckType === 'belarus') {
       return true;
     }
-    // Для Казахского убираем Европу и Краснодар
     if (truckType === 'kazakh') {
+      // Для Казахского убираем Европу и Краснодар
       return route.id !== 'krasnodar' && route.id !== 'european-trip';
     }
     return false;
@@ -32,31 +31,109 @@ const DirectionChoicePage: React.FC = () => {
 
   return (
     <Layout title={title}>
-      <div className="space-y-3 mt-2">
-        {visibleRoutes.map((route) => (
-          <div
-            key={route.id}
-            onClick={() => navigate(`/${truckType}/${route.id}`)}
-            className="group flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500"
-          >
-            <div className="flex items-center gap-4">
-              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-300">
-                <MapPin size={24} />
+      <div className="space-y-4 mt-2">
+        
+        {/* 1. СПИСОК МАРШРУТОВ (ТЕПЕРЬ СВЕРХУ) */}
+        <div className="space-y-3">
+          {visibleRoutes.map((route) => (
+            <div
+              key={route.id}
+              onClick={() => navigate(`/${truckType}/${route.id}`)}
+              className="group flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500"
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-300">
+                  <MapPin size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 dark:text-white">{route.name}</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{route.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-gray-900 dark:text-white">{route.name}</h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{route.desc}</p>
-              </div>
+              <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
             </div>
-            <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
-          </div>
-        ))}
+          ))}
 
-        {visibleRoutes.length === 0 && (
-          <div className="text-center text-gray-500 p-4">
-            Нет доступных маршрутов
+          {visibleRoutes.length === 0 && (
+            <div className="text-center text-gray-500 p-4">
+              Нет доступных маршрутов
+            </div>
+          )}
+        </div>
+
+        {/* 2. ИНФОРМАЦИОННЫЙ БЛОК (ТЕПЕРЬ СНИЗУ) */}
+        <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 shadow-sm">
+          <div className="flex items-start gap-3 mb-3">
+            <div className="shrink-0 text-amber-600 dark:text-amber-400 mt-1">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <h3 className="font-bold text-amber-800 dark:text-amber-300 text-base leading-tight">
+                ‼️ Новые правила заправки с 01.12.2025
+              </h3>
+              <p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-1">
+                Для рейсов в Казахстан и Китай
+              </p>
+            </div>
           </div>
-        )}
+
+          <div className="text-sm text-gray-800 dark:text-gray-200 space-y-3">
+            <div className="pl-2 border-l-2 border-amber-300 dark:border-amber-700">
+              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-1">
+                🆕 Основные изменения:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>Заправка осуществляется в Беларуси и России</li>
+                <li>В Казахстане — только дозаправка при необходимости</li>
+              </ul>
+            </div>
+
+            <div className="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-amber-100 dark:border-amber-800/50">
+              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-2">
+                Обновлённые нормы топлива:
+              </p>
+              
+              {/* УСЛОВИЕ ДЛЯ БЕЛОРУССКОГО ТЯГАЧА */}
+              {truckType === 'belarus' && (
+                <div>
+                  <p className="font-bold text-sm mb-1">🇧🇾 Для BY тягачей:</p>
+                  <ul className="space-y-1 text-xs sm:text-sm">
+                    <li className="flex justify-between">
+                      <span>Выход из РБ:</span>
+                      <span className="font-bold">полные баки</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>Вход в КЗ:</span>
+                      <span className="font-bold">полные баки</span>
+                    </li>
+                    <li className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-1 mt-1">
+                      <span>Вход в РБ:</span>
+                      <span className="font-bold text-red-600 dark:text-red-400">100 литров</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
+
+              {/* УСЛОВИЕ ДЛЯ КАЗАХСКОГО ТЯГАЧА */}
+              {truckType === 'kazakh' && (
+                <div>
+                  <p className="font-bold text-sm mb-1">🇰🇿 Для KZ тягачей:</p>
+                  <ul className="space-y-1 text-xs sm:text-sm">
+                    <li className="flex justify-between">
+                      <span>Вход в КЗ:</span>
+                      <span className="font-bold">полные баки</span>
+                    </li>
+                    <li className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-1 mt-1">
+                      <span>Вход в РБ:</span>
+                      <span className="font-bold">полные баки</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
       </div>
     </Layout>
   );
