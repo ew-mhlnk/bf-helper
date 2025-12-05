@@ -13,6 +13,7 @@ import OpenTripPage from './manual/OpenTripPage';
 import CloseTripPage from './manual/CloseTripPage';
 import AddCMRPage from './manual/AddCMRPage';
 import AddReceiptPage from './manual/AddReceiptPage';
+import TrailerSwapPage from './manual/TrailerSwapPage';
 
 // Импорты страниц с данными (Рейсы)
 import AsianTripPage from './data/AsianTripPage';
@@ -94,6 +95,7 @@ function App() {
         <Route path="/belarus/european-trip" element={<EuropeanTripPage />} />
         <Route path="/belarus/manchzhuriya" element={<ManchzhuriyaPage />} />
         <Route path="/belarus/krasnodar" element={<KrasnodarPage />} />
+        <Route path="/trailer-swap" element={<TrailerSwapPage />} />
 
         {/* Маршруты для Казахского тягача */}
         <Route path="/kazakh/asian-trip" element={<KazakhAsianTripPage />} />
