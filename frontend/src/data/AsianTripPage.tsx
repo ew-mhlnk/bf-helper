@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, Info } from 'lucide-react';
+import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, GitMerge, ArrowDown } from 'lucide-react';
 
 type TabType = 'there' | 'back';
 
@@ -10,13 +10,13 @@ const AsianTripPage: React.FC = () => {
   return (
     <Layout title="Азия (BY-тягач)">
       
-      {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК (Контрастный) */}
+      {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК */}
       <div className="flex p-1 bg-gray-200 dark:bg-gray-800 rounded-xl mb-4 sticky top-[60px] z-40 shadow-sm mx-[-8px]">
         <button
           onClick={() => setActiveTab('there')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'there'
-              ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' // Активная: Синяя
+              ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' 
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
           }`}
         >
@@ -26,7 +26,7 @@ const AsianTripPage: React.FC = () => {
           onClick={() => setActiveTab('back')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'back'
-              ? 'bg-green-600 text-white shadow-md transform scale-[1.02]' // Активная: Зеленая
+              ? 'bg-green-600 text-white shadow-md transform scale-[1.02]' 
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700'
           }`}
         >
@@ -36,11 +36,11 @@ const AsianTripPage: React.FC = () => {
 
       <div className="space-y-4 pb-8">
         
-        {/* ======================= ТУДА ======================= */}
+        {/* ======================= ТУДА (Без изменений) ======================= */}
         {activeTab === 'there' && (
           <div className="animate-in fade-in slide-in-from-left-4 duration-300 space-y-4">
             
-            {/* --- БЕЛАРУСЬ --- */}
+            {/* БЕЛАРУСЬ */}
             <section>
               <SectionHeader title="🇧🇾 Беларусь" color="text-green-600 dark:text-green-400" />
               <StationCard 
@@ -50,10 +50,9 @@ const AsianTripPage: React.FC = () => {
               />
             </section>
 
-            {/* --- РОССИЯ --- */}
+            {/* РОССИЯ */}
             <section>
               <SectionHeader title="🇷🇺 Россия" color="text-blue-600 dark:text-blue-400" />
-              
               <div className="space-y-3">
                 {/* М5 */}
                 <RouteGroup name="Трасса М5">
@@ -87,7 +86,6 @@ const AsianTripPage: React.FC = () => {
                   <div className="space-y-3">
                     <div>
                       <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Яйсан</div>
-                      {/* Добавил координаты */}
                       <StationCard 
                         title="Башнефть / Роснефть"
                         coords="51.172763, 55.009327" 
@@ -95,7 +93,6 @@ const AsianTripPage: React.FC = () => {
                         volume="До полных баков"
                       />
                     </div>
-
                     <div>
                       <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Троицк</div>
                       <StationCard 
@@ -105,7 +102,6 @@ const AsianTripPage: React.FC = () => {
                         volume="До полных баков"
                       />
                     </div>
-
                     <div>
                       <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Маштаково</div>
                       <StationCard 
@@ -115,7 +111,6 @@ const AsianTripPage: React.FC = () => {
                         volume="До полных баков"
                       />
                     </div>
-
                     <div>
                       <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Петухово</div>
                       <StationCard 
@@ -130,7 +125,7 @@ const AsianTripPage: React.FC = () => {
               </div>
             </section>
 
-            {/* --- КАЗАХСТАН --- */}
+            {/* КАЗАХСТАН */}
             <section>
               <SectionHeader title="🇰🇿 Казахстан" color="text-yellow-600 dark:text-yellow-400" />
               <div className="p-3 rounded-xl bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-sm text-sm">
@@ -152,62 +147,85 @@ const AsianTripPage: React.FC = () => {
           </div>
         )}
 
-        {/* ======================= ОБРАТНО ======================= */}
+        {/* ======================= ОБРАТНО (ОБНОВЛЕНО) ======================= */}
         {activeTab === 'back' && (
-          <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+          <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
             
-            {/* --- ВХОД В РФ --- */}
+            {/* МАРШРУТ 1: Ольховка */}
             <section>
-              <SectionHeader title="🇷🇺 Вход в РФ" color="text-blue-600 dark:text-blue-400" />
-              <div className="mb-2">
-                <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 ml-1">Пункт пропуска Черлак</div>
+              <SectionHeader title="🇷🇺 Выход через Ольховку (Черлак)" color="text-blue-600 dark:text-blue-400" />
+              <div className="space-y-2">
                 <StationCard 
-                  title="Газпром"
+                  title="Газпром (Черлак)"
+                  coords="54.1723, 74.78265"
                   payment="Карта Газпром"
-                  volume="Заправиться до М5 или М7" 
+                  volume="Заправиться до..." 
+                />
+                
+                <div className="flex flex-col items-center py-1 text-gray-400"><ArrowDown size={20} /></div>
+
+                <RouteGroup name="Далее на выбор (М5 или М7)">
+                  <StationCard 
+                    title="М5: Таиф-НК"
+                    coords="54.476888, 53.324735"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
+                  <div className="flex items-center justify-center gap-2 py-2 text-xs font-bold text-gray-400">
+                    <GitMerge size={14} /> ИЛИ
+                  </div>
+                  <StationCard 
+                    title="М7: Таиф-НК"
+                    coords="55.704133, 53.035245"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
+                </RouteGroup>
+              </div>
+            </section>
+
+            {/* МАРШРУТ 2: Маштаково */}
+            <section>
+              <SectionHeader title="🇷🇺 Выход через Маштаково" color="text-indigo-600 dark:text-indigo-400" />
+              <div className="space-y-2">
+                <StationCard 
+                  title="Роснефть (Маштаково)"
+                  coords="52.104272, 50.84312"
+                  payment="Карта Роснефть"
+                  volume="До заправки по М5"
+                />
+                
+                <div className="flex flex-col items-center py-1 text-gray-400"><ArrowDown size={20} /></div>
+
+                <StationCard 
+                  title="М5: Таиф-НК"
+                  coords="53.416196, 49.481666"
+                  payment="E1 Card"
+                  volume="До РБ (вход 100 л.)"
                 />
               </div>
             </section>
 
-            {/* --- ТРАССЫ РФ --- */}
+            {/* МАРШРУТ 3: Яйсан */}
             <section>
-              <SectionHeader title="🛣 Трассы РФ" color="text-blue-600 dark:text-blue-400" />
-              <div className="space-y-3">
-                
-                <RouteGroup name="Трасса М5">
-                  <StationCard 
-                    title="Таиф-НК"
-                    coords="54.476888, 53.324735"
-                    payment="E1 Card"
-                    volume="Заправка до РБ (Вход в РБ = 100 л.)" 
-                  />
-                </RouteGroup>
+              <SectionHeader title="🇷🇺 Выход через Яйсан" color="text-purple-600 dark:text-purple-400" />
+              <div className="space-y-2">
+                <StationCard 
+                  title="Башнефть / Роснефть"
+                  payment="Карта Роснефть"
+                  volume="До заправки по М5"
+                />
 
-                <RouteGroup name="Трасса М7">
-                  <StationCard 
-                    title="Таиф-НК"
-                    coords="55.704133, 53.035245"
-                    payment="E1 Card"
-                    volume="Заправка до РБ (Вход в РБ = 100 л.)"
-                  />
-                </RouteGroup>
+                <div className="flex flex-col items-center py-1 text-gray-400"><ArrowDown size={20} /></div>
+
+                <StationCard 
+                  title="М5: Таиф-НК"
+                  coords="53.416196, 49.481666"
+                  payment="E1 Card"
+                  volume="До РБ (вход 100 л.)"
+                />
               </div>
             </section>
-
-             {/* --- ИНФОБЛОК ПРО ДРУГОЙ МАРШРУТ --- */}
-             <div className="p-4 rounded-xl border border-indigo-200 bg-indigo-50 dark:bg-indigo-900/20 dark:border-indigo-800 flex gap-3 items-start">
-              <div className="text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5">
-                <Info size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold text-indigo-700 dark:text-indigo-400 text-sm">
-                  Если выход не через Ольховку
-                </h3>
-                <p className="text-indigo-600/90 dark:text-indigo-300/90 text-xs mt-1 leading-relaxed">
-                  Двигайтесь в обратном порядке по схеме «Туда», но рассчитывайте топливо так, чтобы <span className="font-bold underline">вход в РБ был 100 литров</span>.
-                </p>
-              </div>
-            </div>
 
           </div>
         )}
