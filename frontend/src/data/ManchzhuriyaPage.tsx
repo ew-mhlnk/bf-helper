@@ -9,7 +9,15 @@ const ManchzhuriyaPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('there');
   const [openRoute, setOpenRoute] = useState<RouteId>(null);
 
+  // Функция виброотклика
+  const vibration = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(15);
+    }
+  };
+
   const toggleRoute = (id: RouteId) => {
+    vibration();
     if (openRoute === id) {
       setOpenRoute(null);
     } else {
@@ -17,13 +25,18 @@ const ManchzhuriyaPage: React.FC = () => {
     }
   };
 
+  const handleTabChange = (tab: TabType) => {
+    vibration();
+    setActiveTab(tab);
+    setOpenRoute(null);
+  };
+
   return (
     <Layout title="Маньчжурия (BY-тягач)">
       
-      {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК */}
       <div className="flex p-1 bg-gray-200 dark:bg-gray-800 rounded-xl mb-4 sticky top-[60px] z-40 shadow-sm mx-[-8px]">
         <button
-          onClick={() => { setActiveTab('there'); setOpenRoute(null); }}
+          onClick={() => handleTabChange('there')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'there'
               ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' 
@@ -33,7 +46,7 @@ const ManchzhuriyaPage: React.FC = () => {
           Туда <ArrowRight size={18} />
         </button>
         <button
-          onClick={() => { setActiveTab('back'); setOpenRoute(null); }}
+          onClick={() => handleTabChange('back')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'back'
               ? 'bg-green-600 text-white shadow-md transform scale-[1.02]' 
@@ -50,7 +63,6 @@ const ManchzhuriyaPage: React.FC = () => {
         {activeTab === 'there' && (
           <div className="animate-in fade-in slide-in-from-left-4 duration-300 space-y-4">
             
-            {/* БЕЛАРУСЬ */}
             <section>
               <SectionHeader title="🇧🇾 Беларусь" color="text-green-600 dark:text-green-400" />
               <StationCard 
@@ -60,76 +72,69 @@ const ManchzhuriyaPage: React.FC = () => {
               />
             </section>
 
-            {/* РОССИЯ */}
             <section>
               <SectionHeader title="🇷🇺 Россия (Центр)" color="text-blue-600 dark:text-blue-400" />
               
-              <div className="px-1 mb-2 text-sm font-bold text-gray-500 uppercase tracking-wide">
+              <div className="px-1 mb-3 text-sm font-bold text-gray-500 uppercase tracking-wide">
                 Выберите трассу:
               </div>
 
-              {/* М5 */}
-              <RouteAccordion 
-                title="Трасса М5" 
-                isOpen={openRoute === 'm5_there'} 
-                onClick={() => toggleRoute('m5_there')}
-              >
-                <div className="space-y-2">
-                  <StationCard 
-                    title="Aris"
-                    coords="53.17996, 47.87732"
-                    payment="E1 Card"
-                    volume="До полных баков"
-                  />
-                  <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                    <GitMerge size={12} /> ИЛИ
+              {/* Увеличил отступ */}
+              <div className="space-y-4">
+                <RouteAccordion 
+                  title="Трасса М5" 
+                  isOpen={openRoute === 'm5_there'} 
+                  onClick={() => toggleRoute('m5_there')}
+                >
+                  <div className="space-y-2">
+                    <StationCard 
+                      title="Aris"
+                      coords="53.17996, 47.87732"
+                      payment="E1 Card"
+                      volume="До полных баков"
+                    />
+                    <OrDivider />
+                    <StationCard 
+                      title="Газпром"
+                      coords="53.496066, 50.072105"
+                      payment="E1 Card"
+                      volume="До полных баков"
+                    />
+                    <OrDivider />
+                    <StationCard 
+                      title="Таиф-НК"
+                      coords="54.476888, 53.324735"
+                      payment="E1 Card"
+                      volume="До полных баков"
+                    />
                   </div>
-                  <StationCard 
-                    title="Газпром"
-                    coords="53.496066, 50.072105"
-                    payment="E1 Card"
-                    volume="До полных баков"
-                  />
-                  <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                    <GitMerge size={12} /> ИЛИ
-                  </div>
-                  <StationCard 
-                    title="Таиф-НК"
-                    coords="54.476888, 53.324735"
-                    payment="E1 Card"
-                    volume="До полных баков"
-                  />
-                </div>
-              </RouteAccordion>
+                </RouteAccordion>
 
-              {/* М7 */}
-              <RouteAccordion 
-                title="Трасса М7" 
-                isOpen={openRoute === 'm7_there'} 
-                onClick={() => toggleRoute('m7_there')}
-              >
-                <div className="space-y-2">
-                  <StationCard 
-                    title="Иликом"
-                    coords="55.89424, 48.883128"
-                    payment="E1 Card"
-                    volume="До полных баков"
-                  />
-                  <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                    <GitMerge size={12} /> ИЛИ
+                <RouteAccordion 
+                  title="Трасса М7" 
+                  isOpen={openRoute === 'm7_there'} 
+                  onClick={() => toggleRoute('m7_there')}
+                >
+                  <div className="space-y-2">
+                    <StationCard 
+                      title="Иликом"
+                      coords="55.89424, 48.883128"
+                      payment="E1 Card"
+                      volume="До полных баков"
+                    />
+                    <OrDivider />
+                    <StationCard 
+                      title="Таиф НК"
+                      coords="55.704133, 53.035245"
+                      payment="E1 Card"
+                      volume="До полных баков"
+                    />
                   </div>
-                  <StationCard 
-                    title="Таиф НК"
-                    coords="55.704133, 53.035245"
-                    payment="E1 Card"
-                    volume="До полных баков"
-                  />
-                </div>
-              </RouteAccordion>
+                </RouteAccordion>
+              </div>
             </section>
 
-            {/* СИБИРЬ */}
-            <section>
+            <section className="mt-4">
               <SectionHeader title="🛣 Сибирь" color="text-blue-600 dark:text-blue-400" />
               <div className="space-y-3">
                 <RouteGroup name="Омская обл.">
@@ -158,7 +163,6 @@ const ManchzhuriyaPage: React.FC = () => {
         {activeTab === 'back' && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
             
-            {/* ИНФО */}
             <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex items-center gap-3">
               <div className="text-blue-600 dark:text-blue-400"><Info size={24} /></div>
               <p className="text-sm text-blue-800 dark:text-blue-300 font-medium">
@@ -166,7 +170,6 @@ const ManchzhuriyaPage: React.FC = () => {
               </p>
             </div>
 
-            {/* СИБИРЬ */}
             <section>
               <SectionHeader title="🇷🇺 Россия (Домой)" color="text-green-600 dark:text-green-400" />
               
@@ -189,73 +192,67 @@ const ManchzhuriyaPage: React.FC = () => {
               </div>
             </section>
 
-            {/* ВЫБОР ТРАССЫ */}
-            <div className="px-1 mt-2 mb-1 text-sm font-bold text-gray-500 uppercase tracking-wide">
-              Выберите трассу:
+            <div className="px-1 mb-2 text-sm font-bold text-gray-500 uppercase tracking-wide">
+              Выберите маршрут выхода:
             </div>
 
-            {/* М5 */}
-            <RouteAccordion 
-              title="Через Трассу М5" 
-              isOpen={openRoute === 'm5_back'} 
-              onClick={() => toggleRoute('m5_back')}
-            >
-              <div className="space-y-3">
-                <div className="text-center text-xs font-bold text-gray-400 mb-2">НА ВЫБОР (Вход в РБ 100л)</div>
-                
-                <StationCard 
-                  title="Aris"
-                  coords="53.17996, 47.87732"
-                  payment="E1 Card"
-                  volume="До РБ (вход 100 л.)"
-                />
-                <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                  <GitMerge size={12} /> ИЛИ
+            {/* Увеличил отступ */}
+            <div className="space-y-4">
+              <RouteAccordion 
+                title="Через Трассу М5" 
+                isOpen={openRoute === 'm5_back'} 
+                onClick={() => toggleRoute('m5_back')}
+              >
+                <div className="space-y-3">
+                  <div className="text-center text-xs font-bold text-gray-400 mb-2">НА ВЫБОР (Вход в РБ 100л)</div>
+                  
+                  <StationCard 
+                    title="Aris"
+                    coords="53.17996, 47.87732"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
+                  <OrDivider />
+                  <StationCard 
+                    title="Газпром"
+                    coords="53.496066, 50.072105"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
+                  <OrDivider />
+                  <StationCard 
+                    title="Таиф-НК"
+                    coords="54.476888, 53.324735"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
                 </div>
-                <StationCard 
-                  title="Газпром"
-                  coords="53.496066, 50.072105"
-                  payment="E1 Card"
-                  volume="До РБ (вход 100 л.)"
-                />
-                <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                  <GitMerge size={12} /> ИЛИ
-                </div>
-                <StationCard 
-                  title="Таиф-НК"
-                  coords="54.476888, 53.324735"
-                  payment="E1 Card"
-                  volume="До РБ (вход 100 л.)"
-                />
-              </div>
-            </RouteAccordion>
+              </RouteAccordion>
 
-            {/* М7 */}
-            <RouteAccordion 
-              title="Через Трассу М7" 
-              isOpen={openRoute === 'm7_back'} 
-              onClick={() => toggleRoute('m7_back')}
-            >
-              <div className="space-y-3">
-                <div className="text-center text-xs font-bold text-gray-400 mb-2">НА ВЫБОР (Вход в РБ 100л)</div>
-                
-                <StationCard 
-                  title="Иликом"
-                  coords="55.89424, 48.883128"
-                  payment="E1 Card"
-                  volume="До РБ (вход 100 л.)"
-                />
-                <div className="flex items-center justify-center gap-2 py-1 text-xs font-bold text-gray-400">
-                  <GitMerge size={12} /> ИЛИ
+              <RouteAccordion 
+                title="Через Трассу М7" 
+                isOpen={openRoute === 'm7_back'} 
+                onClick={() => toggleRoute('m7_back')}
+              >
+                <div className="space-y-3">
+                  <div className="text-center text-xs font-bold text-gray-400 mb-2">НА ВЫБОР (Вход в РБ 100л)</div>
+                  
+                  <StationCard 
+                    title="Иликом"
+                    coords="55.89424, 48.883128"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
+                  <OrDivider />
+                  <StationCard 
+                    title="Таиф НК"
+                    coords="55.704133, 53.035245"
+                    payment="E1 Card"
+                    volume="До РБ (вход 100 л.)"
+                  />
                 </div>
-                <StationCard 
-                  title="Таиф НК"
-                  coords="55.704133, 53.035245"
-                  payment="E1 Card"
-                  volume="До РБ (вход 100 л.)"
-                />
-              </div>
-            </RouteAccordion>
+              </RouteAccordion>
+            </div>
 
           </div>
         )}
@@ -266,6 +263,12 @@ const ManchzhuriyaPage: React.FC = () => {
 };
 
 // --- КОМПОНЕНТЫ ---
+
+const OrDivider = () => (
+  <div className="flex items-center justify-center gap-2 py-2 text-[10px] font-bold text-gray-400 uppercase">
+    <GitMerge size={12} /> Или
+  </div>
+);
 
 const RouteAccordion = ({ title, isOpen, onClick, children }: { title: string, isOpen: boolean, onClick: () => void, children: React.ReactNode }) => (
   <div className={`overflow-hidden rounded-xl border transition-all duration-300 ${isOpen ? 'border-blue-500 bg-white dark:bg-[#1e1e1e] shadow-md' : 'border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#1a1a1a]'}`}>
@@ -317,6 +320,7 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
+    if (navigator.vibrate) navigator.vibrate(15);
     if (coords) {
       navigator.clipboard.writeText(coords);
       setCopied(true);
@@ -337,6 +341,7 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
               href={`https://www.google.com/maps/search/?api=1&query=${coords}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => navigator.vibrate && navigator.vibrate(15)}
               className="p-2 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-100 transition-colors"
             >
               <ExternalLink size={18} />
@@ -345,6 +350,7 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
               href={`https://yandex.ru/maps/?text=${coords}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => navigator.vibrate && navigator.vibrate(15)}
               className="p-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 hover:bg-red-100 transition-colors text-xs font-bold w-[34px] flex items-center justify-center"
             >
               Ya

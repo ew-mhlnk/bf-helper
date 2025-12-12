@@ -13,23 +13,30 @@ const Layout: React.FC<LayoutProps> = ({ children, title, showBack = true }) => 
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Хелпер для вибрации
+  const vibrate = () => {
+    if (navigator.vibrate) navigator.vibrate(15);
+  };
+
   const [isDark, setIsDark] = useState(() => {
-    const themeParam = searchParams.get('theme');
+    const params = new URLSearchParams(window.location.search);
+    const themeParam = params.get('theme');
+    
     if (themeParam === 'dark') return true;
     if (themeParam === 'light') return false;
     
     const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true;
+    return saved === 'dark';
   });
 
   useEffect(() => {
     const themeParam = searchParams.get('theme');
-    if (themeParam === 'dark' && !isDark) {
+    if (themeParam === 'dark') {
       setIsDark(true);
-    } else if (themeParam === 'light' && isDark) {
+    } else if (themeParam === 'light') {
       setIsDark(false);
     }
-  }, [searchParams, isDark]);
+  }, [searchParams]);
 
   useEffect(() => {
     if (isDark) {
@@ -42,12 +49,18 @@ const Layout: React.FC<LayoutProps> = ({ children, title, showBack = true }) => 
   }, [isDark]);
 
   const toggleTheme = () => {
+    vibrate(); // Вибрация
     const newTheme = !isDark;
     setIsDark(newTheme);
     
     const newParams = new URLSearchParams(searchParams);
     newParams.set('theme', newTheme ? 'dark' : 'light');
     setSearchParams(newParams, { replace: true });
+  };
+
+  const handleBack = () => {
+    vibrate(); // Вибрация
+    navigate(-1);
   };
 
   return (
@@ -57,7 +70,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, showBack = true }) => 
         <div className="flex items-center gap-3">
           {showBack && location.pathname !== '/' && (
             <button 
-              onClick={() => navigate(-1)}
+              onClick={handleBack}
               className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-200 text-gray-600'}`}
             >
               <ChevronLeft size={24} />

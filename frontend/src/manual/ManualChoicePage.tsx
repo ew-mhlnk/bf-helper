@@ -1,12 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Key, FilePlus, CheckCircle, FileText, Receipt } from 'lucide-react'; // Импортируем иконки
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt } from 'lucide-react';
 import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Список инструкций с иконками и цветами
+  const handleNavigate = (path: string) => {
+    if (navigator.vibrate) navigator.vibrate(15);
+    navigate(path);
+  };
+
   const manuals = [
     { 
       path: '/manual/start-work', 
@@ -58,18 +62,15 @@ const ManualChoicePage: React.FC = () => {
         {manuals.map((item, index) => (
           <div
             key={index}
-            onClick={() => navigate(item.path)}
+            onClick={() => handleNavigate(item.path)}
             className="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all 
                        bg-white dark:bg-[#1e1e1e] 
                        border border-gray-200 dark:border-gray-800 
                        shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-[0.98]"
           >
-            {/* Иконка с цветным фоном */}
             <div className={`p-3 rounded-full ${item.color}`}>
               {item.icon}
             </div>
-            
-            {/* Текст */}
             <div>
               <h3 className="font-bold text-lg text-gray-900 dark:text-white">
                 {item.title}

@@ -7,13 +7,18 @@ type TabType = 'there' | 'back';
 const KrasnodarPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('there');
 
+  const handleTabChange = (tab: TabType) => {
+    if (navigator.vibrate) navigator.vibrate(15);
+    setActiveTab(tab);
+  };
+
   return (
     <Layout title="Краснодар (BY-тягач)">
       
       {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК */}
       <div className="flex p-1 bg-gray-200 dark:bg-gray-800 rounded-xl mb-4 sticky top-[60px] z-40 shadow-sm mx-[-8px]">
         <button
-          onClick={() => setActiveTab('there')}
+          onClick={() => handleTabChange('there')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'there'
               ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' 
@@ -23,7 +28,7 @@ const KrasnodarPage: React.FC = () => {
           Туда <ArrowRight size={18} />
         </button>
         <button
-          onClick={() => setActiveTab('back')}
+          onClick={() => handleTabChange('back')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${
             activeTab === 'back'
               ? 'bg-green-600 text-white shadow-md transform scale-[1.02]' 
@@ -114,6 +119,7 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
+    if (navigator.vibrate) navigator.vibrate(15);
     if (coords) {
       navigator.clipboard.writeText(coords);
       setCopied(true);
@@ -123,36 +129,31 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
 
   return (
     <div className="bg-white dark:bg-[#1e1e1e] p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-      {/* Заголовок и координаты */}
       <div className="flex justify-between items-start gap-2 mb-2">
         <div className="min-w-0">
           <h3 className="text-base font-bold text-gray-900 dark:text-white truncate leading-tight">{title}</h3>
         </div>
         
-        {/* Кнопки действий */}
         {coords && (
           <div className="flex gap-1.5 shrink-0">
-            {/* Google */}
             <a 
               href={`https://www.google.com/maps/search/?api=1&query=${coords}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => navigator.vibrate && navigator.vibrate(15)}
               className="p-2 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-100 transition-colors"
             >
               <ExternalLink size={18} />
             </a>
-            
-            {/* Yandex */}
             <a 
               href={`https://yandex.ru/maps/?text=${coords}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => navigator.vibrate && navigator.vibrate(15)}
               className="p-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 hover:bg-red-100 transition-colors text-xs font-bold w-[34px] flex items-center justify-center"
             >
               Ya
             </a>
-
-            {/* Copy */}
             <button
               onClick={handleCopy}
               className={`p-2 rounded-lg transition-colors ${
@@ -167,7 +168,6 @@ const StationCard: React.FC<StationProps> = ({ title, coords, payment, volume })
         )}
       </div>
 
-      {/* Информация */}
       <div className="space-y-1.5 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-4 shrink-0 text-gray-400"><CreditCard size={14}/></div>

@@ -7,9 +7,13 @@ const DirectionChoicePage: React.FC = () => {
   const { truckType } = useParams<{ truckType: string }>();
   const navigate = useNavigate();
 
+  const handleNavigate = (path: string) => {
+    if (navigator.vibrate) navigator.vibrate(15);
+    navigate(path);
+  };
+
   const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
 
-  // Полный список всех возможных маршрутов
   const allRoutes = [
     { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
     { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
@@ -17,28 +21,20 @@ const DirectionChoicePage: React.FC = () => {
     { id: 'krasnodar', name: 'Краснодар', desc: 'Южное направление' },
   ];
 
-  // Фильтруем маршруты в зависимости от тягача
   const visibleRoutes = allRoutes.filter(route => {
-    if (truckType === 'belarus') {
-      return true;
-    }
-    if (truckType === 'kazakh') {
-      // Для Казахского убираем Европу и Краснодар
-      return route.id !== 'krasnodar' && route.id !== 'european-trip';
-    }
+    if (truckType === 'belarus') return true;
+    if (truckType === 'kazakh') return route.id !== 'krasnodar' && route.id !== 'european-trip';
     return false;
   });
 
   return (
     <Layout title={title}>
       <div className="space-y-4 mt-2">
-        
-        {/* 1. СПИСОК МАРШРУТОВ (ТЕПЕРЬ СВЕРХУ) */}
         <div className="space-y-3">
           {visibleRoutes.map((route) => (
             <div
               key={route.id}
-              onClick={() => navigate(`/${truckType}/${route.id}`)}
+              onClick={() => handleNavigate(`/${truckType}/${route.id}`)}
               className="group flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500"
             >
               <div className="flex items-center gap-4">
@@ -53,15 +49,8 @@ const DirectionChoicePage: React.FC = () => {
               <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
             </div>
           ))}
-
-          {visibleRoutes.length === 0 && (
-            <div className="text-center text-gray-500 p-4">
-              Нет доступных маршрутов
-            </div>
-          )}
         </div>
 
-        {/* 2. ИНФОРМАЦИОННЫЙ БЛОК (ТЕПЕРЬ СНИЗУ) */}
         <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 shadow-sm">
           <div className="flex items-start gap-3 mb-3">
             <div className="shrink-0 text-amber-600 dark:text-amber-400 mt-1">
@@ -76,7 +65,7 @@ const DirectionChoicePage: React.FC = () => {
               </p>
             </div>
           </div>
-
+          {/* ... (остальной контент блока без изменений) ... */}
           <div className="text-sm text-gray-800 dark:text-gray-200 space-y-3">
             <div className="pl-2 border-l-2 border-amber-300 dark:border-amber-700">
               <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-1">
@@ -93,7 +82,6 @@ const DirectionChoicePage: React.FC = () => {
                 Обновлённые нормы топлива:
               </p>
               
-              {/* УСЛОВИЕ ДЛЯ БЕЛОРУССКОГО ТЯГАЧА */}
               {truckType === 'belarus' && (
                 <div>
                   <p className="font-bold text-sm mb-1">🇧🇾 Для BY тягачей:</p>
@@ -114,7 +102,6 @@ const DirectionChoicePage: React.FC = () => {
                 </div>
               )}
 
-              {/* УСЛОВИЕ ДЛЯ КАЗАХСКОГО ТЯГАЧА */}
               {truckType === 'kazakh' && (
                 <div>
                   <p className="font-bold text-sm mb-1">🇰🇿 Для KZ тягачей:</p>
@@ -133,7 +120,6 @@ const DirectionChoicePage: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
     </Layout>
   );
