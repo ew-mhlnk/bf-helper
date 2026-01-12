@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MapPin, ArrowRight, AlertTriangle, Snowflake } from 'lucide-react';
+import { MapPin, ArrowRight, AlertTriangle } from 'lucide-react';
 import Layout from './components/Layout';
 
 const DirectionChoicePage: React.FC = () => {
@@ -50,30 +50,6 @@ const DirectionChoicePage: React.FC = () => {
               <ArrowRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
             </div>
           ))}
-        </div>
-
-        {/* --- НОВЫЙ БЛОК: Форс-мажор (Сильные морозы) --- */}
-        <div className="p-4 rounded-xl border border-cyan-200 bg-cyan-50 dark:bg-cyan-900/20 dark:border-cyan-800 shadow-sm">
-          <div className="flex items-start gap-3 mb-2">
-            <div className="shrink-0 text-cyan-600 dark:text-cyan-400 mt-1">
-              <Snowflake size={24} />
-            </div>
-            <div>
-              <h3 className="font-bold text-cyan-800 dark:text-cyan-300 text-base leading-tight">
-                Дозаправка в форс-мажорные ситуации
-              </h3>
-              <p className="text-sm text-cyan-700/90 dark:text-cyan-200/90 mt-1 leading-relaxed">
-                В случае форс-мажора (сильные морозы) заправить/дозаправить прицеп можно на АЗС <span className="font-bold">Роснефть</span> или <span className="font-bold">Башнефть</span>.
-              </p>
-              
-              <div className="mt-3 pt-2 border-t border-cyan-200 dark:border-cyan-800/50 flex items-center gap-2 text-xs sm:text-sm text-cyan-800 dark:text-cyan-100">
-                <span className="text-xl">💳</span>
-                <span>
-                  Использовать карты: <span className="font-bold">{truckType === 'belarus' ? 'e1card или Роснефть' : 'e1card'}</span>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Блок: Новые правила */}
