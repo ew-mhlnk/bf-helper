@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, AlertTriangle, MessageCircle } from 'lucide-react';
 
 type TabType = 'there' | 'back';
 
@@ -94,9 +94,9 @@ const EuropeanTripPage: React.FC = () => {
               
               <div className="space-y-3">
                 <StationCard 
-                  title="GreenOil (AdBlue)"
-                  coords="54.853292, 31.858721"
-                  payment="Монополия (по СТС)"
+                  title="AdBlue"
+                  coords="54.861146, 31.978176"
+                  payment="E1 Card"
                   volume="Полный бак"
                 />
 
@@ -114,27 +114,48 @@ const EuropeanTripPage: React.FC = () => {
             <section>
               <SectionHeader title="🇧🇾 Беларусь" color="text-green-600 dark:text-green-400" />
               
-              <div className="space-y-3">
-                <div className="relative">
-                  <div className="absolute -left-2 top-3 w-1 h-8 bg-green-500 rounded-r"></div>
-                  <StationCard 
-                    title="Газпром (Основная)"
-                    coords="55.186410, 30.095450"
-                    payment="Карта Газпром"
-                    volume="Полные баки"
-                  />
-                </div>
+              <div className="space-y-4">
+                {/* 1. Основная - Газпром */}
+                <StationCard 
+                  title="Газпром"
+                  coords="55.186410, 30.095450"
+                  payment="Карта Газпром"
+                  volume="Полные баки"
+                />
 
-                <div className="relative opacity-90">
-                  <div className="absolute -left-2 top-3 w-1 h-8 bg-yellow-500 rounded-r"></div>
+                {/* 2. Блок с предупреждением и Белоруснефтью */}
+                <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
+                  <div className="flex gap-2 items-start mb-3">
+                    <AlertTriangle size={20} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-amber-800 dark:text-amber-300 text-sm">
+                        Белоруснефть (Дозаправка)
+                      </h3>
+                      <p className="text-xs text-amber-900/80 dark:text-amber-200/80 mt-1 leading-relaxed">
+                        Если нужно заправиться здесь — предварительно напишите, чтобы открыли лимиты!
+                      </p>
+                    </div>
+                  </div>
+
+                  <a 
+                    href="https://wa.me/375292468990"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 mb-4 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-bold transition-colors shadow-sm active:scale-[0.98]"
+                  >
+                    <MessageCircle size={18} />
+                    Написать в WhatsApp
+                  </a>
+
+                  {/* Карточка заправки внутри блока (теперь стандартная) */}
                   <StationCard 
-                    title="Белоруснефть (Дозаправка)"
+                    title="Белоруснефть"
                     coords="55.755285, 27.955635"
                     payment="Карта Белоруснефть"
                     volume="Доехать до Газпрома"
                   />
-                  <p className="text-[10px] text-gray-400 mt-1 ml-1">* Если топлива не хватает до основной заправки</p>
                 </div>
+
               </div>
             </section>
 
