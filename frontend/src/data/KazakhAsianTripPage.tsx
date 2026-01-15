@@ -221,7 +221,7 @@ const KazakhAsianTripPage: React.FC = () => {
                     title="Роснефть"
                     coords="52.104272, 50.84312"
                     payment="E1 Card"
-                    volume="До Ермаков"
+                    volume="До заправки по М5"
                   />
                   
                   <div className="flex flex-col items-center py-1 text-gray-400"><ArrowDown size={20} /></div>
