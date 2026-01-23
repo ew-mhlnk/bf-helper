@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, AlertTriangle, MessageCircle } from 'lucide-react';
+import { MapPin, CreditCard, Droplet, Copy, ExternalLink, Check, ArrowRight, ArrowLeft, AlertTriangle, MessageCircle, GitMerge } from 'lucide-react';
 
 type TabType = 'there' | 'back';
 
@@ -88,29 +88,58 @@ const EuropeanTripPage: React.FC = () => {
         {activeTab === 'back' && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
             
-            {/* РОССИЯ (AdBlue) */}
+            {/* 1. РОССИЯ (AdBlue) */}
             <section>
               <SectionHeader title="🇷🇺 Россия (AdBlue)" color="text-blue-600 dark:text-blue-400" />
               
-              <div className="space-y-3">
+              {/* Объединенный блок */}
+              <div className="bg-gray-50 dark:bg-[#1a1a1a] p-3 rounded-xl border border-gray-200 dark:border-gray-800 space-y-2">
                 <StationCard 
-                  title="AdBlue"
-                  coords="54.861146, 31.978176"
+                  title="Ермаки"
+                  coords="54.843884, 31.674989"
                   payment="E1 Card"
                   volume="Полный бак"
                 />
 
-                {/* Запрет ДТ */}
-                <div className="p-3 rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 flex gap-2 items-center">
-                  <AlertTriangle size={20} className="text-red-600 dark:text-red-400" />
-                  <p className="text-red-700 dark:text-red-300 text-xs font-bold">
-                    Дизелем в РФ не заправляться!
-                  </p>
+                <div className="flex items-center justify-center gap-2 text-xs font-bold text-gray-400">
+                  <GitMerge size={14} /> ИЛИ
                 </div>
+
+                <StationCard 
+                  title="Дивасы"
+                  coords="54.861146, 31.978176"
+                  payment="E1 Card"
+                  volume="Полный бак"
+                />
               </div>
             </section>
 
-            {/* БЕЛАРУСЬ */}
+            {/* 2. РОССИЯ (СОГЛАСОВАНИЕ) */}
+            <section>
+              <div className="p-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
+                <div className="flex gap-2 items-start mb-3">
+                  <AlertTriangle size={24} className="text-red-600 dark:text-red-400 shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-red-800 dark:text-red-300 text-sm uppercase leading-tight">
+                      ТОЛЬКО ПО ПРЕДВАРИТЕЛЬНОМУ СОГЛАСОВАНИЮ С САКОМ Д.М.
+                    </h3>
+                  </div>
+                </div>
+                
+                <p className="text-sm text-gray-800 dark:text-gray-200 mb-3 ml-1">
+                  Дозаправка на этой АЗС в России возможна только по предварительному согласованию!
+                </p>
+
+                <StationCard 
+                  title="Сургутнефтегаз"
+                  coords="57.645217, 27.395782"
+                  payment="E1 Card"
+                  volume="По согласованию"
+                />
+              </div>
+            </section>
+
+            {/* 3. БЕЛАРУСЬ */}
             <section>
               <SectionHeader title="🇧🇾 Беларусь" color="text-green-600 dark:text-green-400" />
               
@@ -147,7 +176,7 @@ const EuropeanTripPage: React.FC = () => {
                     Написать в WhatsApp
                   </a>
 
-                  {/* Карточка заправки внутри блока (теперь стандартная) */}
+                  {/* Карточка заправки внутри блока */}
                   <StationCard 
                     title="Белоруснефть"
                     coords="55.755285, 27.955635"
@@ -167,7 +196,7 @@ const EuropeanTripPage: React.FC = () => {
   );
 };
 
-// --- КОМПОНЕНТЫ (Compact Style) ---
+// --- КОМПОНЕНТЫ ---
 
 const SectionHeader = ({ title, color }: { title: string, color: string }) => (
   <h2 className={`text-base font-bold mb-2 flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-1 ${color}`}>
