@@ -40,7 +40,7 @@ const PrintReportPage: React.FC = () => {
               <p>
                 Зайдите в настройки Bluetooth телефона. Проверьте, есть ли в списке устройств:
                 <br/>
-                <span className="font-bold">MPT-II</span> или <span className="font-bold">Printer_147F</span>.
+                <span className="font-bold">MRT-II</span> или <span className="font-bold">Printer_147F</span>.
               </p>
               <MediaThumbnail 
                 src="/photo/ustr.jpg" 
@@ -65,9 +65,9 @@ const PrintReportPage: React.FC = () => {
                 Пароль для сопряжения: <span className="font-mono font-bold bg-gray-100 dark:bg-gray-800 px-1 rounded">0000</span>
               </p>
               <MediaThumbnail 
-                src="/photo/bluetooth.mov" 
+                src="/photo/bluetooth.mp4" 
                 type="video"
-                onClick={() => setEnlargedMedia({ type: 'video', src: '/photo/bluetooth.mov' })} 
+                onClick={() => setEnlargedMedia({ type: 'video', src: '/photo/bluetooth.mp4' })} 
               />
             </div>
           }
@@ -89,9 +89,9 @@ const PrintReportPage: React.FC = () => {
                 <li>Нажимаем <span className="font-bold">«Печать»</span></li>
               </ol>
               <MediaThumbnail 
-                src="/photo/reis.mov" 
+                src="/photo/reis.mp4" 
                 type="video"
-                onClick={() => setEnlargedMedia({ type: 'video', src: '/photo/reis.mov' })} 
+                onClick={() => setEnlargedMedia({ type: 'video', src: '/photo/reis.mp4' })} 
               />
             </div>
           }
@@ -116,7 +116,7 @@ const PrintReportPage: React.FC = () => {
         <div className="p-6 rounded-2xl bg-gradient-to-r from-gray-700 to-gray-800 shadow-lg text-white text-center">
           <Printer size={48} className="mx-auto mb-3 opacity-90" />
           <h3 className="text-xl font-bold">Готово!</h3>
-          <p className="opacity-90">Не забудьте поставить принтер на зарядку, если это необходимо.</p>
+          <p className="opacity-90">Не забудьте поставить принтер на зарядку.</p>
         </div>
 
       </div>
