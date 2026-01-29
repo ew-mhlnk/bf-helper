@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Printer, Power, Bluetooth, Smartphone, FileText, ZoomIn, X, PlayCircle } from 'lucide-react';
+import { Printer, Power, Bluetooth, Smartphone, FileText, ZoomIn, X, PlayCircle, AlertTriangle, MessageCircle } from 'lucide-react';
 import Layout from '../components/Layout';
 
 const PrintReportPage: React.FC = () => {
@@ -8,6 +8,33 @@ const PrintReportPage: React.FC = () => {
   return (
     <Layout title="Печать отчета">
       <div className="space-y-6 pb-8">
+
+        {/* --- ВАЖНОЕ СООБЩЕНИЕ --- */}
+        <div className="p-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 shadow-sm">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="shrink-0 text-red-600 dark:text-red-400 mt-1">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <h3 className="font-bold text-red-700 dark:text-red-300 text-lg">
+                ВАЖНО
+              </h3>
+              <p className="text-red-600/90 dark:text-red-300/90 text-sm mt-1 leading-relaxed">
+                Перед печатью отчета необходимо <span className="font-bold underline">согласовать его с Солодуха Викторией</span>.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://wa.me/375447963407"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold transition-colors shadow-md active:scale-[0.98]"
+          >
+            <MessageCircle size={20} />
+            Написать в WhatsApp
+          </a>
+        </div>
 
         {/* ШАГ 1: Включение */}
         <StepSection 
