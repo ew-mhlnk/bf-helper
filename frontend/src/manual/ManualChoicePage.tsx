@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Key, FilePlus, CheckCircle, FileText, Receipt } from 'lucide-react';
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer } from 'lucide-react'; // <-- Добавлен Printer
 import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
@@ -53,6 +53,14 @@ const ManualChoicePage: React.FC = () => {
       desc: 'Расходы и топливо',
       icon: <Receipt size={24} />,
       color: 'text-teal-500 bg-teal-100 dark:bg-teal-900/30'
+    },
+    // --- НОВЫЙ БЛОК ---
+    { 
+      path: '/manual/print-report', 
+      title: 'Печать отчета', 
+      desc: 'Инструкция по принтеру',
+      icon: <Printer size={24} />,
+      color: 'text-slate-600 bg-slate-200 dark:text-slate-300 dark:bg-slate-700/50'
     },
   ];
 

@@ -14,6 +14,7 @@ import CloseTripPage from './manual/CloseTripPage';
 import AddCMRPage from './manual/AddCMRPage';
 import AddReceiptPage from './manual/AddReceiptPage';
 import TrailerSwapPage from './manual/TrailerSwapPage';
+import PrintReportPage from './manual/PrintReportPage'; // <-- Добавлен импорт
 
 // Импорты страниц с данными (Рейсы)
 import AsianTripPage from './data/AsianTripPage';
@@ -86,6 +87,7 @@ function App() {
         <Route path="/manual/close-trip" element={<CloseTripPage />} />
         <Route path="/manual/add-cmr" element={<AddCMRPage />} />
         <Route path="/manual/add-receipt" element={<AddReceiptPage />} />
+        <Route path="/manual/print-report" element={<PrintReportPage />} /> {/* <-- Добавлен маршрут */}
 
         {/* Страницы выбора направления (/:truckType обрабатывает и belarus, и kazakh) */}
         <Route path="/:truckType" element={<DirectionChoicePage />} />
