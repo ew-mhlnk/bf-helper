@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer } from 'lucide-react'; // <-- Добавлен Printer
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer, Settings, FileCheck } from 'lucide-react'; // <-- Добавлены иконки
 import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
@@ -12,6 +12,7 @@ const ManualChoicePage: React.FC = () => {
   };
 
   const manuals = [
+    // ... Старые пункты (Начало работы, Логин, Открыть рейс, Закрыть рейс, CMR, Чек) ...
     { 
       path: '/manual/start-work', 
       title: 'Начало работы', 
@@ -54,13 +55,27 @@ const ManualChoicePage: React.FC = () => {
       icon: <Receipt size={24} />,
       color: 'text-teal-500 bg-teal-100 dark:bg-teal-900/30'
     },
-    // --- НОВЫЙ БЛОК ---
     { 
       path: '/manual/print-report', 
-      title: 'Печать отчета', 
+      title: 'Печать темп. отчета', 
       desc: 'Инструкция по принтеру',
       icon: <Printer size={24} />,
       color: 'text-slate-600 bg-slate-200 dark:text-slate-300 dark:bg-slate-700/50'
+    },
+    // --- НОВЫЕ ПУНКТЫ ---
+    { 
+      path: '/manual/install-printer', 
+      title: 'Установка принтера', 
+      desc: 'Настройка Kyocera (в офисе)',
+      icon: <Settings size={24} />,
+      color: 'text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900/30'
+    },
+    { 
+      path: '/manual/print-driver-report', 
+      title: 'Печать отчета водителя', 
+      desc: 'Печать расходов из приложения',
+      icon: <FileCheck size={24} />,
+      color: 'text-pink-600 bg-pink-100 dark:text-pink-300 dark:bg-pink-900/30'
     },
   ];
 

@@ -20,7 +20,7 @@ const PrintReportPage: React.FC = () => {
                 ВАЖНО
               </h3>
               <p className="text-red-600/90 dark:text-red-300/90 text-sm mt-1 leading-relaxed">
-                Перед печатью отчета необходимо <span className="font-bold underline">согласовать его с Солодуха Викторией</span>.
+                Перед печатью отчета необходимо <span className="font-bold underline">согласовать его с Солодухо Викторией</span>.
               </p>
             </div>
           </div>
