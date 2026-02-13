@@ -6,7 +6,7 @@ const PrintReportPage: React.FC = () => {
   const [enlargedMedia, setEnlargedMedia] = useState<{ type: 'img' | 'video', src: string } | null>(null);
 
   return (
-    <Layout title="Печать отчета">
+    <Layout title="Печать температурного отчета">
       <div className="space-y-6 pb-8">
 
         {/* --- ВАЖНОЕ СООБЩЕНИЕ --- */}

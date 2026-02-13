@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, Share2, Printer, Smartphone, ArrowLeft, Trash2, AlertTriangle, ZoomIn, X, PlayCircle, Info } from 'lucide-react';
+import { FileText, Share2, Printer, Smartphone, ArrowLeft, Trash2, AlertTriangle, ZoomIn, X, PlayCircle, Info, Wifi } from 'lucide-react';
 import Layout from '../components/Layout';
 
 const PrintDriverReportPage: React.FC = () => {
@@ -14,7 +14,28 @@ const PrintDriverReportPage: React.FC = () => {
     <Layout title="Печать отчета">
       <div className="space-y-6 pb-8">
 
-        {/* ПРЕДУПРЕЖДЕНИЕ */}
+        {/* --- ГЛАВНОЕ ПРЕДУПРЕЖДЕНИЕ (WIFI) --- */}
+        {/* Добавил sticky, top-20 (чтобы не перекрывало шапку) и z-30 */}
+        <div className="sticky top-20 z-30 p-4 rounded-xl border border-red-200 bg-red-100 dark:bg-[#3f1212] border-red-300 dark:border-red-700 shadow-xl">
+          <div className="flex items-start gap-3">
+            <div className="shrink-0 text-red-600 dark:text-red-400 mt-1">
+              <Wifi size={28} />
+            </div>
+            <div>
+              <h3 className="font-bold text-red-800 dark:text-red-200 text-lg uppercase leading-tight">
+                Подключитесь к WiFi!
+              </h3>
+              <p className="text-red-900 dark:text-white text-base font-bold mt-2">
+                Сеть: <span className="bg-white dark:bg-red-900 px-2 py-0.5 rounded border border-red-200 dark:border-red-600">BF_GUEST</span>
+              </p>
+              <p className="text-red-700 dark:text-red-300 text-sm mt-2 font-bold leading-tight">
+                БЕЗ ЭТОГО ОТЧЕТ НЕ РАСПЕЧАТАЕТСЯ!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ПРЕДУПРЕЖДЕНИЕ ПРО ПРИЛОЖЕНИЕ */}
         <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 shadow-sm">
           <div className="flex items-start gap-3">
             <div className="shrink-0 text-amber-600 dark:text-amber-400 mt-1">
@@ -22,7 +43,7 @@ const PrintDriverReportPage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold text-amber-800 dark:text-amber-300 text-lg">
-                Важно!
+                Приложение установлено?
               </h3>
               <p className="text-amber-800/90 dark:text-amber-300/90 text-sm mt-1 mb-3 leading-relaxed">
                 Напечатать отчет <strong>без установки приложения</strong> невозможно. Если вы этого не сделали, перейдите по ссылке ниже.
@@ -45,7 +66,7 @@ const PrintDriverReportPage: React.FC = () => {
            </p>
         </div>
 
-        {/* ШАГ 1: Генерация (Картинка Phase1 теперь здесь) */}
+        {/* ШАГ 1: Генерация */}
         <StepSection 
           number={1}
           title="Генерация отчета"
