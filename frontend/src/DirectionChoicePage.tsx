@@ -14,7 +14,7 @@ const DirectionChoicePage: React.FC = () => {
 
   const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
 
-  const allRoutes = [
+  const allRoutes =[
     { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
     { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
     { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
@@ -60,7 +60,7 @@ const DirectionChoicePage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold text-amber-800 dark:text-amber-300 text-base leading-tight">
-                ‼️ Новые правила заправки с 01.12.2025
+                ‼️ Новые правила заправки с 23.03.2026
               </h3>
               <p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-1">
                 Для рейсов в Казахстан и Китай
@@ -69,36 +69,30 @@ const DirectionChoicePage: React.FC = () => {
           </div>
           
           <div className="text-sm text-gray-800 dark:text-gray-200 space-y-3">
-            <div className="pl-2 border-l-2 border-amber-300 dark:border-amber-700">
-              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-1">
-                🆕 Основные изменения:
-              </p>
-              <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm">
-                <li>Заправка осуществляется в Беларуси и России</li>
-                <li>В Казахстане — только дозаправка при необходимости</li>
-              </ul>
-            </div>
-
             <div className="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-amber-100 dark:border-amber-800/50">
-              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-2">
-                Обновлённые нормы топлива:
+              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-3">
+                Обновлённые нормы топлива по входу/выходу:
               </p>
               
               {truckType === 'belarus' && (
                 <div>
-                  <p className="font-bold text-sm mb-1">🇧🇾 Для BY тягачей:</p>
-                  <ul className="space-y-1 text-xs sm:text-sm">
-                    <li className="flex justify-between">
+                  <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇧🇾 Для BY тягачей:</p>
+                  <ul className="space-y-2 text-xs sm:text-sm">
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
                       <span>Выход из РБ:</span>
-                      <span className="font-bold">полные баки</span>
+                      <span className="font-bold text-right">полные баки</span>
                     </li>
-                    <li className="flex justify-between">
-                      <span>Вход в КЗ:</span>
-                      <span className="font-bold">полные баки</span>
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
+                      <span>Выход из КЗ:</span>
+                      <span className="font-bold text-right">полные баки <br/><span className="text-[10px] uppercase text-amber-700 dark:text-amber-400">(только ГАЗПРОМ по карте ГАЗПРОМ)</span></span>
                     </li>
-                    <li className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-1 mt-1">
-                      <span>Вход в РБ:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400">100 литров</span>
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
+                      <span>Россия:</span>
+                      <span className="font-bold text-red-600 dark:text-red-400 text-right">только ДОзаправка<br/><span className="text-[10px] text-red-500 uppercase">(с согласования)</span></span>
+                    </li>
+                    <li className="flex justify-between pt-1">
+                      <span className="text-gray-600 dark:text-gray-400">Если была ДОзаправка в РФ<br/>Вход в РБ:</span>
+                      <span className="font-bold text-red-600 dark:text-red-400 text-right mt-2">не более 100 л.</span>
                     </li>
                   </ul>
                 </div>
@@ -106,14 +100,14 @@ const DirectionChoicePage: React.FC = () => {
 
               {truckType === 'kazakh' && (
                 <div>
-                  <p className="font-bold text-sm mb-1">🇰🇿 Для KZ тягачей:</p>
-                  <ul className="space-y-1 text-xs sm:text-sm">
-                    <li className="flex justify-between">
+                  <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇰🇿 Для KZ тягачей:</p>
+                  <ul className="space-y-2 text-xs sm:text-sm">
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
                       <span>Вход в КЗ:</span>
-                      <span className="font-bold">полные баки</span>
+                      <span className="font-bold text-red-600 dark:text-red-400">не более 100 л.</span>
                     </li>
-                    <li className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-1 mt-1">
-                      <span>Вход в РБ:</span>
+                    <li className="flex justify-between pt-1">
+                      <span>Выход из КЗ:</span>
                       <span className="font-bold">полные баки</span>
                     </li>
                   </ul>
