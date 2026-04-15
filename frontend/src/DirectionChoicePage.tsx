@@ -77,22 +77,30 @@ const DirectionChoicePage: React.FC = () => {
               {truckType === 'belarus' && (
                 <div>
                   <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇧🇾 Для BY тягачей:</p>
-                  <ul className="space-y-2 text-xs sm:text-sm">
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
+                  <ul className="space-y-3 text-xs sm:text-sm">
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-2">
                       <span>Выход из РБ:</span>
                       <span className="font-bold text-right">полные баки</span>
                     </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
-                      <span>Выход из КЗ:</span>
-                      <span className="font-bold text-right">полные баки <br/><span className="text-[10px] uppercase text-amber-700 dark:text-amber-400">(только ГАЗПРОМ по карте ГАЗПРОМ)</span></span>
+                    <li className="flex justify-between gap-3 border-b border-amber-200 dark:border-amber-800/50 pb-2">
+                      <span className="shrink-0">Выход из КЗ:</span>
+                      <span className="font-bold text-right leading-tight">
+                        остаток от полных баков с последней АЗС «Газпром»<br/>
+                        <span className="text-[10px] uppercase text-amber-700 dark:text-amber-400 mt-1 inline-block">
+                          (только ГАЗПРОМ по карте ГАЗПРОМ)
+                        </span>
+                      </span>
                     </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-2">
                       <span>Россия:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400 text-right">только ДОзаправка<br/><span className="text-[10px] text-red-500 uppercase">(с согласования)</span></span>
+                      <span className="font-bold text-red-600 dark:text-red-400 text-right leading-tight">
+                        только ДОзаправка<br/>
+                        <span className="text-[10px] text-red-500 uppercase mt-0.5 inline-block">(с согласования)</span>
+                      </span>
                     </li>
-                    <li className="flex justify-between pt-1">
-                      <span className="text-gray-600 dark:text-gray-400">Если была ДОзаправка в РФ<br/>Вход в РБ:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400 text-right mt-2">не более 100 л.</span>
+                    <li className="flex justify-between gap-2 pt-1">
+                      <span className="text-gray-600 dark:text-gray-400 leading-tight">Если была ДОзаправка в РФ<br/>Вход в РБ:</span>
+                      <span className="font-bold text-red-600 dark:text-red-400 text-right self-end mt-1">не более 100 л.</span>
                     </li>
                   </ul>
                 </div>
