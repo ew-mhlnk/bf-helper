@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer, Settings, FileCheck } from 'lucide-react'; // <-- Добавлены иконки
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer, Settings, FileCheck, AlertTriangle } from 'lucide-react';
 import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
@@ -77,6 +77,13 @@ const ManualChoicePage: React.FC = () => {
       icon: <FileCheck size={24} />,
       color: 'text-pink-600 bg-pink-100 dark:text-pink-300 dark:bg-pink-900/30'
     },
+    {
+  path: '/manual/essers-error',
+  title: 'Ошибка в Essers',
+  desc: 'Как отправить скриншот ошибки',
+  icon: <AlertTriangle size={24} />,
+  color: 'text-red-500 bg-red-100 dark:bg-red-900/30'
+},
   ];
 
   return (
