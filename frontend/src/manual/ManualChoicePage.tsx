@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer, Settings, FileCheck, AlertTriangle } from 'lucide-react';
+import { Play, Key, FilePlus, CheckCircle, FileText, Receipt, Printer, Settings, FileCheck, AlertTriangle, ListTodo } from 'lucide-react';
 import Layout from '../components/Layout';
 
 const ManualChoicePage: React.FC = () => {
@@ -12,7 +12,6 @@ const ManualChoicePage: React.FC = () => {
   };
 
   const manuals = [
-    // ... Старые пункты (Начало работы, Логин, Открыть рейс, Закрыть рейс, CMR, Чек) ...
     { 
       path: '/manual/start-work', 
       title: 'Начало работы', 
@@ -33,6 +32,13 @@ const ManualChoicePage: React.FC = () => {
       desc: 'Пошаговая инструкция',
       icon: <FilePlus size={24} />,
       color: 'text-blue-500 bg-blue-100 dark:bg-blue-900/30'
+    },
+    { 
+      path: '/manual/status-work', 
+      title: 'Работа со статусами', 
+      desc: 'Как отмечать погрузку, выгрузку и перецепку',
+      icon: <ListTodo size={24} />,
+      color: 'text-emerald-600 bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-900/30'
     },
     { 
       path: '/manual/close-trip', 
@@ -62,7 +68,6 @@ const ManualChoicePage: React.FC = () => {
       icon: <Printer size={24} />,
       color: 'text-slate-600 bg-slate-200 dark:text-slate-300 dark:bg-slate-700/50'
     },
-    // --- НОВЫЕ ПУНКТЫ ---
     { 
       path: '/manual/install-printer', 
       title: 'Установка принтера', 
@@ -78,12 +83,12 @@ const ManualChoicePage: React.FC = () => {
       color: 'text-pink-600 bg-pink-100 dark:text-pink-300 dark:bg-pink-900/30'
     },
     {
-  path: '/manual/essers-error',
-  title: 'Ошибка в Essers',
-  desc: 'Как отправить скриншот ошибки',
-  icon: <AlertTriangle size={24} />,
-  color: 'text-red-500 bg-red-100 dark:bg-red-900/30'
-},
+      path: '/manual/essers-error',
+      title: 'Ошибка в Essers',
+      desc: 'Как отправить скриншот ошибки',
+      icon: <AlertTriangle size={24} />,
+      color: 'text-red-500 bg-red-100 dark:bg-red-900/30'
+    },
   ];
 
   return (

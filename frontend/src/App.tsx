@@ -18,6 +18,7 @@ import PrintReportPage from './manual/PrintReportPage'; // <-- Добавлен 
 import InstallPrinterPage from './manual/InstallPrinterPage'; // <-- Добавлено
 import PrintDriverReportPage from './manual/PrintDriverReportPage'; // <-- Добавлено
 import EssersErrorPage from './manual/EssersErrorPage';
+import StatusWorkPage from './manual/StatusWorkPage'; // <-- Добавлен импорт новой страницы
 
 // Импорты страниц с данными (Рейсы)
 import AsianTripPage from './data/AsianTripPage';
@@ -94,6 +95,7 @@ function App() {
         <Route path="/manual/install-printer" element={<InstallPrinterPage />} />
         <Route path="/manual/print-driver-report" element={<PrintDriverReportPage />} />
         <Route path="/manual/essers-error" element={<EssersErrorPage />} />
+        <Route path="/manual/status-work" element={<StatusWorkPage />} /> {/* <-- Добавлен новый роут */}
 
         {/* Страницы выбора направления (/:truckType обрабатывает и belarus, и kazakh) */}
         <Route path="/:truckType" element={<DirectionChoicePage />} />
