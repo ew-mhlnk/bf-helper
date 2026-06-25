@@ -14,7 +14,7 @@ const DirectionChoicePage: React.FC = () => {
 
   const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
 
-  const allRoutes =[
+  const allRoutes = [
     { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
     { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
     { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
@@ -52,7 +52,7 @@ const DirectionChoicePage: React.FC = () => {
           ))}
         </div>
 
-        {/* Блок: Новые правила */}
+        {/* Предупреждение и новые правила */}
         <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 shadow-sm">
           <div className="flex items-start gap-3 mb-3">
             <div className="shrink-0 text-amber-600 dark:text-amber-400 mt-1">
@@ -60,20 +60,21 @@ const DirectionChoicePage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold text-amber-800 dark:text-amber-300 text-base leading-tight">
-                ‼️ Новые правила заправки с 23.03.2026
+                ‼️ Новые правила заправки с 25.06.2026
               </h3>
               <p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-1">
                 Для рейсов в Казахстан и Китай
               </p>
             </div>
           </div>
-          
+
           <div className="text-sm text-gray-800 dark:text-gray-200 space-y-3">
             <div className="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-amber-100 dark:border-amber-800/50">
               <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-3">
                 Обновлённые нормы топлива по входу/выходу:
               </p>
-              
+
+              {/* Правила для белорусских тягачей */}
               {truckType === 'belarus' && (
                 <div>
                   <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇧🇾 Для BY тягачей:</p>
@@ -106,17 +107,35 @@ const DirectionChoicePage: React.FC = () => {
                 </div>
               )}
 
+              {/* Правила для казахских тягачей */}
               {truckType === 'kazakh' && (
                 <div>
                   <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇰🇿 Для KZ тягачей:</p>
-                  <ul className="space-y-2 text-xs sm:text-sm">
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1">
+                  <ul className="space-y-2.5 text-xs sm:text-sm">
+                    <li className="border-b border-amber-200 dark:border-amber-800/50 pb-2">
+                      <span className="font-semibold text-gray-700 dark:text-gray-300 block mb-1">Где заправляться:</span>
+                      <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400 pl-1 text-[11px] sm:text-xs">
+                        <li>В РФ — <span className="font-bold text-red-600 dark:text-red-400">НЕ ЗАПРАВЛЯЕМСЯ</span> (только дозаправка).</li>
+                        <li>В РБ — на <span className="font-bold text-green-600 dark:text-green-400">Газпроме</span> по карте Газпром.</li>
+                      </ul>
+                    </li>
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
+                      <span>Выход из КЗ:</span>
+                      <span className="font-bold text-gray-900 dark:text-white">полные баки</span>
+                    </li>
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
                       <span>Вход в КЗ:</span>
                       <span className="font-bold text-red-600 dark:text-red-400">не более 100 л.</span>
                     </li>
+                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
+                      <span>Выход из РБ:</span>
+                      <span className="font-bold text-right text-gray-900 dark:text-white leading-tight">
+                        до КЗ с остатком 100 л.
+                      </span>
+                    </li>
                     <li className="flex justify-between pt-1">
-                      <span>Выход из КЗ:</span>
-                      <span className="font-bold">полные баки</span>
+                      <span className="leading-tight">Вход в РБ (если была дозаправка в РФ):</span>
+                      <span className="font-bold text-red-600 dark:text-red-400 text-right">не более 100 л.</span>
                     </li>
                   </ul>
                 </div>
