@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { Fuel, BookOpen } from 'lucide-react';
 import Layout from './components/Layout';
-
-// Импорты страниц
 import FuelChoicePage from './FuelChoicePage';
 import DirectionChoicePage from './DirectionChoicePage';
 import ManualChoicePage from './manual/ManualChoicePage';
@@ -14,13 +12,12 @@ import CloseTripPage from './manual/CloseTripPage';
 import AddCMRPage from './manual/AddCMRPage';
 import AddReceiptPage from './manual/AddReceiptPage';
 import TrailerSwapPage from './manual/TrailerSwapPage';
-import PrintReportPage from './manual/PrintReportPage'; // <-- Добавлен импорт
-import InstallPrinterPage from './manual/InstallPrinterPage'; // <-- Добавлено
-import PrintDriverReportPage from './manual/PrintDriverReportPage'; // <-- Добавлено
+import PrintReportPage from './manual/PrintReportPage';
+import InstallPrinterPage from './manual/InstallPrinterPage';
+import PrintDriverReportPage from './manual/PrintDriverReportPage';
 import EssersErrorPage from './manual/EssersErrorPage';
-import StatusWorkPage from './manual/StatusWorkPage'; // <-- Добавлен импорт новой страницы
-
-// Импорты страниц с данными (Рейсы)
+import StatusWorkPage from './manual/StatusWorkPage';
+import AddPlombPage from './manual/AddPlombPage'; // Подключение новой страницы
 import AsianTripPage from './data/AsianTripPage';
 import EuropeanTripPage from './data/EuropeanTripPage';
 import ManchzhuriyaPage from './data/ManchzhuriyaPage';
@@ -30,16 +27,13 @@ import KazakhEuropeanTripPage from './data/KazakhEuropeanTripPage';
 import KazakhManchzhuriyaPage from './data/KazakhManchzhuriyaPage';
 import KazakhKrasnodarPage from './data/KazakhKrasnodarPage';
 
-// Компонент главной страницы (Dashboard)
 const HomePage = () => {
   const navigate = useNavigate();
-
   return (
     <Layout title="Главное меню" showBack={false}>
       <div className="space-y-6 mt-4">
-        
-        {/* Карточка 1: Заправки */}
-        <div 
+        {/* Схемы заправок */}
+        <div
           onClick={() => navigate('/fuel-choice')}
           className="group cursor-pointer relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-blue-600 to-blue-800 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
         >
@@ -52,9 +46,8 @@ const HomePage = () => {
           </div>
           <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity" />
         </div>
-
-        {/* Карточка 2: Инструкции */}
-        <div 
+        {/* Инструкции */}
+        <div
           onClick={() => navigate('/manual')}
           className="group cursor-pointer relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-purple-600 to-indigo-800 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
         >
@@ -67,7 +60,6 @@ const HomePage = () => {
           </div>
           <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity" />
         </div>
-
       </div>
     </Layout>
   );
@@ -77,37 +69,33 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Главная страница */}
         <Route path="/" element={<HomePage />} />
-        
-        {/* Меню выбора */}
         <Route path="/fuel-choice" element={<FuelChoicePage />} />
         <Route path="/manual" element={<ManualChoicePage />} />
         
-        {/* Конкретные инструкции */}
+        {/* Инструкции */}
         <Route path="/manual/start-work" element={<StartWorkPage />} />
         <Route path="/manual/login-password" element={<LoginPasswordPage />} />
         <Route path="/manual/open-trip" element={<OpenTripPage />} />
         <Route path="/manual/close-trip" element={<CloseTripPage />} />
         <Route path="/manual/add-cmr" element={<AddCMRPage />} />
         <Route path="/manual/add-receipt" element={<AddReceiptPage />} />
-        <Route path="/manual/print-report" element={<PrintReportPage />} /> {/* <-- Добавлен маршрут */}
+        <Route path="/manual/print-report" element={<PrintReportPage />} />
         <Route path="/manual/install-printer" element={<InstallPrinterPage />} />
         <Route path="/manual/print-driver-report" element={<PrintDriverReportPage />} />
         <Route path="/manual/essers-error" element={<EssersErrorPage />} />
-        <Route path="/manual/status-work" element={<StatusWorkPage />} /> {/* <-- Добавлен новый роут */}
+        <Route path="/manual/status-work" element={<StatusWorkPage />} />
+        <Route path="/manual/add-plomb" element={<AddPlombPage />} /> {/* Новый роут */}
 
-        {/* Страницы выбора направления (/:truckType обрабатывает и belarus, и kazakh) */}
+        {/* Маршруты BY */}
         <Route path="/:truckType" element={<DirectionChoicePage />} />
-
-        {/* Маршруты для Белорусского тягача */}
         <Route path="/belarus/asian-trip" element={<AsianTripPage />} />
         <Route path="/belarus/european-trip" element={<EuropeanTripPage />} />
         <Route path="/belarus/manchzhuriya" element={<ManchzhuriyaPage />} />
         <Route path="/belarus/krasnodar" element={<KrasnodarPage />} />
         <Route path="/trailer-swap" element={<TrailerSwapPage />} />
 
-        {/* Маршруты для Казахского тягача */}
+        {/* Маршруты KZ */}
         <Route path="/kazakh/asian-trip" element={<KazakhAsianTripPage />} />
         <Route path="/kazakh/european-trip" element={<KazakhEuropeanTripPage />} />
         <Route path="/kazakh/manchzhuriya" element={<KazakhManchzhuriyaPage />} />
