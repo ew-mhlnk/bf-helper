@@ -15,16 +15,16 @@ const DirectionChoicePage: React.FC = () => {
   const isBelarus = truckType === 'belarus';
   const title = isBelarus ? 'Белорусский тягач' : 'Казахский тягач';
 
+  // Европейский рейс исключен из списка
   const allRoutes = [
     { id: 'asian-trip', name: 'Китай (через Казахстан)', desc: 'Через РФ в Азию и Китай' },
-    { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
     { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
     { id: 'krasnodar', name: 'Краснодар', desc: 'Южное направление' },
   ];
 
   const visibleRoutes = allRoutes.filter(route => {
     if (isBelarus) return true;
-    if (truckType === 'kazakh') return route.id !== 'krasnodar' && route.id !== 'european-trip';
+    if (truckType === 'kazakh') return route.id !== 'krasnodar';
     return false;
   });
 
@@ -77,7 +77,7 @@ const DirectionChoicePage: React.FC = () => {
                 Обновлённые нормы топлива по входу/выходу:
               </p>
 
-              {/* 🇧🇾 Блок для белорусских тягачей (Таблица) */}
+              {/* 🇧🇾 Блок для белорусских тягачей */}
               {isBelarus && (
                 <div className="space-y-3">
                   <p className="font-bold text-sm text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
@@ -165,7 +165,7 @@ const DirectionChoicePage: React.FC = () => {
                 </div>
               )}
 
-              {/* 🇰🇿 Блок для казахских тягачей (Таблица) */}
+              {/* 🇰🇿 Блок для казахских тягачей */}
               {!isBelarus && (
                 <div className="space-y-3">
                   <p className="font-bold text-sm text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
