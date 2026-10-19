@@ -12,17 +12,18 @@ const DirectionChoicePage: React.FC = () => {
     navigate(path);
   };
 
-  const title = truckType === 'belarus' ? 'Белорусский тягач' : 'Казахский тягач';
+  const isBelarus = truckType === 'belarus';
+  const title = isBelarus ? 'Белорусский тягач' : 'Казахский тягач';
 
   const allRoutes = [
-    { id: 'asian-trip', name: 'Азиатский рейс', desc: 'Через РФ в Азию' },
+    { id: 'asian-trip', name: 'Китай (через Казахстан)', desc: 'Через РФ в Азию и Китай' },
     { id: 'european-trip', name: 'Европейский рейс', desc: 'Гросберен и Европа' },
     { id: 'manchzhuriya', name: 'Маньчжурия', desc: 'Китайское направление' },
     { id: 'krasnodar', name: 'Краснодар', desc: 'Южное направление' },
   ];
 
   const visibleRoutes = allRoutes.filter(route => {
-    if (truckType === 'belarus') return true;
+    if (isBelarus) return true;
     if (truckType === 'kazakh') return route.id !== 'krasnodar' && route.id !== 'european-trip';
     return false;
   });
@@ -52,7 +53,7 @@ const DirectionChoicePage: React.FC = () => {
           ))}
         </div>
 
-        {/* Предупреждение и новые правила */}
+        {/* Предупреждение и новые правила заправки */}
         <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 shadow-sm">
           <div className="flex items-start gap-3 mb-3">
             <div className="shrink-0 text-amber-600 dark:text-amber-400 mt-1">
@@ -60,84 +61,183 @@ const DirectionChoicePage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold text-amber-800 dark:text-amber-300 text-base leading-tight">
-                ‼️ Новые правила заправки с 25.06.2026
+                ‼️ Новые правила заправки с 19.10.2026
               </h3>
               <p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-1">
-                Для рейсов в Казахстан и Китай
+                {isBelarus
+                  ? 'Для рейсов в Казахстан, Китай и Россию'
+                  : 'Для рейсов в Казахстан и Китай'}
               </p>
             </div>
           </div>
 
           <div className="text-sm text-gray-800 dark:text-gray-200 space-y-3">
-            <div className="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-amber-100 dark:border-amber-800/50">
-              <p className="font-bold text-amber-700 dark:text-amber-400 text-xs uppercase mb-3">
+            <div className="bg-white/70 dark:bg-black/30 p-3 sm:p-4 rounded-xl border border-amber-200/70 dark:border-amber-800/50 shadow-xs">
+              <p className="font-bold text-amber-800 dark:text-amber-400 text-xs uppercase tracking-wide mb-3">
                 Обновлённые нормы топлива по входу/выходу:
               </p>
 
-              {/* Правила для белорусских тягачей */}
-              {truckType === 'belarus' && (
-                <div>
-                  <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇧🇾 Для BY тягачей:</p>
-                  <ul className="space-y-3 text-xs sm:text-sm">
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-2">
-                      <span>Выход из РБ:</span>
-                      <span className="font-bold text-right">полные баки</span>
-                    </li>
-                    <li className="flex justify-between gap-3 border-b border-amber-200 dark:border-amber-800/50 pb-2">
-                      <span className="shrink-0">Выход из КЗ:</span>
-                      <span className="font-bold text-right leading-tight">
-                        остаток от полных баков с последней АЗС «Газпром»<br/>
-                        <span className="text-[10px] uppercase text-amber-700 dark:text-amber-400 mt-1 inline-block">
-                          (только ГАЗПРОМ по карте ГАЗПРОМ)
-                        </span>
-                      </span>
-                    </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-2">
-                      <span>Россия:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400 text-right leading-tight">
-                        только ДОзаправка<br/>
-                        <span className="text-[10px] text-red-500 uppercase mt-0.5 inline-block">(с согласования)</span>
-                      </span>
-                    </li>
-                    <li className="flex justify-between gap-2 pt-1">
-                      <span className="text-gray-600 dark:text-gray-400 leading-tight">Если была ДОзаправка в РФ<br/>Вход в РБ:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400 text-right self-end mt-1">не более 100 л.</span>
-                    </li>
-                  </ul>
+              {/* 🇧🇾 Блок для белорусских тягачей (Таблица) */}
+              {isBelarus && (
+                <div className="space-y-3">
+                  <p className="font-bold text-sm text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
+                    <span>🇧🇾</span> Для BY тягачей:
+                  </p>
+
+                  <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] shadow-xs">
+                    <table className="w-full text-left text-xs sm:text-sm">
+                      <thead className="bg-gray-100/80 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold border-b border-gray-200 dark:border-gray-700 uppercase text-[10px] sm:text-xs">
+                        <tr>
+                          <th className="py-2.5 px-3">Контрольная точка</th>
+                          <th className="py-2.5 px-3 text-right">Норма остатка</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800 font-medium">
+                        <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Выход из РБ</div>
+                            <div className="text-[11px] text-gray-500">выезд в рейс</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300">
+                              полные баки
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Вход в КЗ</div>
+                            <div className="text-[11px] text-gray-500">граница Казахстана</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300">
+                              полные баки
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-amber-50/50 dark:hover:bg-amber-900/10 bg-amber-50/30 dark:bg-amber-950/20">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-amber-900 dark:text-amber-300">Заправка в КЗ</div>
+                            <div className="text-[11px] text-amber-700/80 dark:text-amber-400/80">по E1 Card (SinoOil, Газпром, КМГ, Helios)</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-200 text-amber-900 dark:bg-amber-900/60 dark:text-amber-200">
+                              только ДОзаправка
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Выход из КЗ</div>
+                            <div className="text-[11px] text-gray-500">граница КЗ/РФ</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+                              150 – 200 л. (суммарно тягач + п/п)
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-red-50/50 dark:hover:bg-red-900/10">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Вход в РБ</div>
+                            <div className="text-[11px] text-gray-500">въезд в Беларусь</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                              200 л (суммарно тягач + п/п)
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="p-2.5 rounded-lg bg-amber-100/60 dark:bg-amber-900/30 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2">
+                    <AlertTriangle size={15} className="shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                    <span>
+                      <strong>Внимание:</strong> В Казахстане полные баки не заправлять — разрешена только дозаправка по E1 Card на проверенных АЗС (SinoOil, Газпром, КазМунайГаз, Helios). На выезде из КЗ в баках должно оставаться 150–200 л, а на въезде в Беларусь — 200 л (суммарно баки тягача + п/п).
+                    </span>
+                  </div>
                 </div>
               )}
 
-              {/* Правила для казахских тягачей */}
-              {truckType === 'kazakh' && (
-                <div>
-                  <p className="font-bold text-sm mb-2 text-blue-700 dark:text-blue-400">🇰🇿 Для KZ тягачей:</p>
-                  <ul className="space-y-2.5 text-xs sm:text-sm">
-                    <li className="border-b border-amber-200 dark:border-amber-800/50 pb-2">
-                      <span className="font-semibold text-gray-700 dark:text-gray-300 block mb-1">Где заправляться:</span>
-                      <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400 pl-1 text-[11px] sm:text-xs">
-                        <li>В РФ — <span className="font-bold text-red-600 dark:text-red-400">НЕ ЗАПРАВЛЯЕМСЯ</span> (только дозаправка).</li>
-                        <li>В РБ — на <span className="font-bold text-green-600 dark:text-green-400">Газпроме</span> по карте Газпром.</li>
-                      </ul>
-                    </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
-                      <span>Выход из КЗ:</span>
-                      <span className="font-bold text-gray-900 dark:text-white">полные баки</span>
-                    </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
-                      <span>Вход в КЗ:</span>
-                      <span className="font-bold text-red-600 dark:text-red-400">не более 100 л.</span>
-                    </li>
-                    <li className="flex justify-between border-b border-amber-200 dark:border-amber-800/50 pb-1.5">
-                      <span>Выход из РБ:</span>
-                      <span className="font-bold text-right text-gray-900 dark:text-white leading-tight">
-                        до КЗ с остатком 100 л.
-                      </span>
-                    </li>
-                    <li className="flex justify-between pt-1">
-                      <span className="leading-tight">Вход в РБ (если была дозаправка в РФ):</span>
-                      <span className="font-bold text-red-600 dark:text-red-400 text-right">не более 100 л.</span>
-                    </li>
-                  </ul>
+              {/* 🇰🇿 Блок для казахских тягачей (Таблица) */}
+              {!isBelarus && (
+                <div className="space-y-3">
+                  <p className="font-bold text-sm text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
+                    <span>🇰🇿</span> Для KZ тягачей:
+                  </p>
+
+                  <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] shadow-xs">
+                    <table className="w-full text-left text-xs sm:text-sm">
+                      <thead className="bg-gray-100/80 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold border-b border-gray-200 dark:border-gray-700 uppercase text-[10px] sm:text-xs">
+                        <tr>
+                          <th className="py-2.5 px-3">Контрольная точка</th>
+                          <th className="py-2.5 px-3 text-right">Норма остатка</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800 font-medium">
+                        <tr className="hover:bg-amber-50/50 dark:hover:bg-amber-900/10 bg-amber-50/30 dark:bg-amber-950/20">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-amber-900 dark:text-amber-300">Заправка в КЗ</div>
+                            <div className="text-[11px] text-amber-700/80 dark:text-amber-400/80">на территории Казахстана</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-200 text-amber-900 dark:bg-amber-900/60 dark:text-amber-200">
+                              только ДОзаправка
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Выход из КЗ</div>
+                            <div className="text-[11px] text-gray-500">выезд в рейс / сторону РФ</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+                              150 – 200 л. (суммарно тягач + п/п)
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-red-50/50 dark:hover:bg-red-900/10">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Вход в РБ</div>
+                            <div className="text-[11px] text-gray-500">въезд в Беларусь</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                              200 л (суммарно тягач + п/п)
+                            </span>
+                          </td>
+                        </tr>
+
+                        <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                          <td className="py-2.5 px-3">
+                            <div className="font-bold text-gray-900 dark:text-white">Выход из РБ</div>
+                            <div className="text-[11px] text-gray-500">выезд обратно в КЗ</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300">
+                              полные баки
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="p-2.5 rounded-lg bg-amber-100/60 dark:bg-amber-900/30 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2">
+                    <AlertTriangle size={15} className="shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                    <span>
+                      <strong>Внимание:</strong> В Казахстане полные баки не заправлять — разрешена только дозаправка по E1 Card на проверенных АЗС (SinoOil, Газпром, КазМунайГаз, Helios). На выезде из КЗ в баках должно оставаться 150–200 л, на въезде в Беларусь — 200 л (суммарно тягач + п/п), а на выезде из Беларуси — полные баки (Газпром).
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
